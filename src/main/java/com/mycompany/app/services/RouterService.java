@@ -17,17 +17,14 @@ public class RouterService {
             case "/home":
                 new HomeScreen(this).start(scan);
                 break;
+            case "/register":
+                new RegisterScreen(this, getUserService()).start(scan);
+                break;
             case "/login":
                 System.out.println("login");
                 break;
             case "/menu":
                 System.out.println("menu");
-            case "/register":
-                new RegisterScreen(this, getUserService()).start(scan);
-                break;
-            case "/review":
-                System.out.println("review");
-                break;
             default:
                 break;
         }

@@ -2,6 +2,7 @@ package com.mycompany.app.services;
 
 import com.mycompany.app.models.User;
 import com.mycompany.app.daos.UserDAO;
+import org.mindrot.jbcrypt.BCrypt;
 
 public class UserService {
 
@@ -12,7 +13,8 @@ public class UserService {
     }
 
     public User register(String username, String password) {
-        User newUser = new User("b", username, password, "b");
+        String hashPass = BCrypt.hashpw(password, BCrypt.gensalt());
+        User newUser = new User(username, hashPass, "b");
         userDao.save(newUser);
         return newUser;
     }
