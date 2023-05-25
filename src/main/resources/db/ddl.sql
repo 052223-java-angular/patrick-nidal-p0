@@ -1,51 +1,81 @@
-DROP TABLE IF EXISTS account CASCADE;
-DROP TABLE IF EXISTS role CASCADE;
-DROP TABLE IF EXISTS order CASCADE;
-DROP TABLE IF EXISTS category CASCADE;
-DROP TABLE IF EXISTS product CASCADE;
-DROP TABLE IF EXISTS review CASCADE;
+SET search_path TO p0;
+DROP TABLE IF EXISTS roles CASCADE;
+DROP TABLE IF EXISTS accounts CASCADE;
+DROP TABLE IF EXISTS orders CASCADE;
+DROP TABLE IF EXISTS categories CASCADE;
+DROP TABLE IF EXISTS products CASCADE;
+DROP TABLE IF EXISTS reviews CASCADE;
+DROP TABLE IF EXISTS cart_items CASCADE;
+DROP TABLE IF EXISTS cart CASCADE;
+DROP TABLE IF EXISTS order_items CASCADE;
 
-CREATE TABLE account (
-user_id VARCHAR PRIMARY KEY,
-username VARCHAR NOT NULL UNIQUE,
-password VARCHAR NOT NULL,
-role_id VARCHAR NOT NULL,
-FOREIGN KEY (role_id) REFERENCES role (role_id)
+CREATE TABLE roles (
+	id INT PRIMARY KEY,
+	name VARCHAR NOT NULL
 );
 
-CREATE TABLE role (
-    role_id INT PRIMARY KEY,
-    role VARCHAR NOT NULL
+CREATE TABLE accounts (
+	id VARCHAR PRIMARY KEY,
+	username VARCHAR NOT NULL UNIQUE,
+	password VARCHAR NOT NULL,
+	role_id INT NOT NULL,
+	FOREIGN KEY (role_id) REFERENCES roles (id)
 );
 
-CREATE TABLE order (
-    order_id VARCHAR PRIMARY KEY,
-    user_id VARCHAR NOT NULL,
-    product_id VARCHAR NOT NULL,
-    quantity VARCHAR NOT NULL,
-    FOREIGN KEY (user_id) REFERENCES account (user_id),
-    FOREIGN KEY (product_id) REFERENCES product (product_id)
+CREATE TABLE categories (
+	id INT PRIMARY KEY,
+	name VARCHAR NOT NULL
 );
 
-CREATE TABLE product (
-    product_id VARCHAR PRIMARY KEY,
-    category_id VARCHAR NOT NULL,
-    price INT NOT NULL,
-    on_hand INT,
-    FOREIGN KEY (category_id) REFERENCES category (category_id)
+CREATE TABLE products (
+	id VARCHAR PRIMARY KEY,
+	description VARCHAR NOT NULL,
+	price DECIMAL NOT NULL,
+	on_hand INT,
+	category_id INT NOT NULL,
+	FOREIGN KEY (category_id) REFERENCES categories (id)
 );
 
-CREATE TABLE category (
-category_id INT PRIMARY KEY,
-name VARCHAR NOT NULL
+CREATE TABLE orders (
+	id VARCHAR PRIMARY KEY,
+	total_cost DECIMAL NOT NULL,
+	account_id VARCHAR NOT NULL,
+	product_id VARCHAR NOT NULL,
+	FOREIGN KEY (account_id) REFERENCES accounts (id),
+	FOREIGN KEY (product_id) REFERENCES products (id)
 );
 
-CREATE TABLE review (
-    review_id VARCHAR PRIMARY KEY,
-    user_id VARCHAR NOT NULL,
-    product_id VARCHAR NOT NULL,
-    stars VARCHAR NOT NULL,
-    comment VARCHAR NOT NULL,
-    FOREIGN KEY (user_id) REFERENCES user (user_id),
-    FOREIGN KEY (product_id) REFERENCES product (product_id)
+CREATE TABLE reviews (
+	id VARCHAR PRIMARY KEY,
+	stars INT NOT NULL,
+	comment VARCHAR NOT NULL,
+	account_id VARCHAR NOT NULL,
+	product_id VARCHAR NOT NULL,
+	FOREIGN KEY (account_id) REFERENCES accounts (id),
+	FOREIGN KEY (product_id) REFERENCES products (id)
+);
+
+CREATE TABLE cart (
+	id INT PRIMARY KEY,
+	account_id VARCHAR NOT NULL,
+	FOREIGN KEY (account_id) REFERENCES accounts (id)
+);
+
+CREATE TABLE cart_items (
+	id INT PRIMARY KEY,
+	quantity INT NOT NULL,
+	price DECIMAL NOT NULL,
+	product_id VARCHAR NOT NULL,
+	cart_id INT NOT NULL,
+	FOREIGN KEY (product_id) REFERENCES products (id),
+	FOREIGN KEY (cart_id) REFERENCES cart (id)
+);
+
+CREATE TABLE order_items (
+	id INT PRIMARY KEY,
+	quantity INT NOT NULL,
+	product_id VARCHAR NOT NULL,
+	order_id VARCHAR NOT NULL,
+	FOREIGN KEY (product_id) REFERENCES products (id),
+	FOREIGN KEY (order_id) REFERENCES orders (id)
 );
