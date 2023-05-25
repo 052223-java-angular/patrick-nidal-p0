@@ -7,7 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.io.IOException;
 
-public class UserDAO {
+public class UserDAO implements CrudDAO {
 
     public void save(User user) {
         try(Connection conn = ConnectionFactory.getConnection()) {

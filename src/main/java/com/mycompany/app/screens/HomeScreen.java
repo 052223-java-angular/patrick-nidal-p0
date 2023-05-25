@@ -15,9 +15,9 @@ public class HomeScreen implements IScreen {
         exit: {
             while(true) {
                 clearScreen();
-                System.out.println("Welcome to ecommerce site");
-                System.out.println("\n[1] Login screen");
-                System.out.println("[2] register screen");
+                System.out.println("Welcome to ecommerce site - Home");
+                System.out.println("\n[1] Login");
+                System.out.println("[2] Register");
                 System.out.println("[x] Exit");
 
                 System.out.print("\nEnter:");
@@ -26,7 +26,7 @@ public class HomeScreen implements IScreen {
 
                 switch(input.toLowerCase()) {
                     case "1":
-                        System.out.println("for log in");
+                        System.out.println("/login");
                         break;
                     case "2":
                         router.navigate("/register", scan);
