@@ -1,4 +1,4 @@
-package com.mycompany.app;
+package com.revature.p0;
 
 import static org.junit.Assert.assertTrue;
 

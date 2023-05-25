@@ -1,11 +1,10 @@
-package com.mycompany.app.services;
+package com.revature.p0.services;
 
-import com.mycompany.app.screens.HomeScreen;
-import com.mycompany.app.screens.MainMenu;
-import com.mycompany.app.screens.RegisterScreen;
-import com.mycompany.app.daos.UserDAO;
-import com.mycompany.app.models.Session;
-import com.mycompany.app.screens.LoginScreen;
+import com.revature.p0.screens.HomeScreen;
+import com.revature.p0.screens.RegisterScreen;
+import com.revature.p0.daos.UserDAO;
+import com.revature.p0.models.Session;
+import com.revature.p0.screens.LoginScreen;
 import lombok.AllArgsConstructor;
 import java.util.Scanner;
 
