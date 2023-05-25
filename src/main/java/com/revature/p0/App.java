@@ -12,6 +12,5 @@ public class App {
     RouterService router = new RouterService(new Session());
     router.navigate("/home", scanner);
     scanner.close();
-
   }
 }

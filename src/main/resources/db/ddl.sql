@@ -40,9 +40,7 @@ CREATE TABLE orders (
 	id VARCHAR PRIMARY KEY,
 	total_cost DECIMAL NOT NULL,
 	account_id VARCHAR NOT NULL,
-	product_id VARCHAR NOT NULL,
-	FOREIGN KEY (account_id) REFERENCES accounts (id),
-	FOREIGN KEY (product_id) REFERENCES products (id)
+	FOREIGN KEY (account_id) REFERENCES accounts (id)
 );
 
 CREATE TABLE reviews (
