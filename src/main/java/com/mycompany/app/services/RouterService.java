@@ -20,10 +20,10 @@ public class RouterService {
                 new HomeScreen(this).start(scan);
                 break;
             case "/register":
-                new RegisterScreen(this, getUserService(), session).start(scan);
+                new RegisterScreen(this, getUserService()).start(scan);
                 break;
             case "/login":
-                new LoginScreen(this).start(scan);
+                new LoginScreen(this, session).start(scan);
                 break;
             case "/menu":
                 System.out.println("menu");

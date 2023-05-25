@@ -3,7 +3,6 @@ package com.mycompany.app.screens;
 import com.mycompany.app.services.RouterService;
 import com.mycompany.app.services.UserService;
 import com.mycompany.app.models.User;
-import com.mycompany.app.models.Session;
 import lombok.AllArgsConstructor;
 
 import java.util.Scanner;
@@ -12,7 +11,6 @@ import java.util.Scanner;
 public class RegisterScreen {
     private final RouterService router;
     private final UserService userService;
-    private Session session;
 
     public void start(Scanner scan) {
         String input = "";
