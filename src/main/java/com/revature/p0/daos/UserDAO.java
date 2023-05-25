@@ -12,7 +12,7 @@ public class UserDAO implements CrudDAO {
 
     public void save(User user) {
         try(Connection conn = ConnectionFactory.getInstance().getConnection()) {
-            String sql = "INSERT INTO account (user_id, username, password) VALUES (?, ?, ?)";
+            String sql = "INSERT INTO accounts (id, username, password) VALUES (?, ?, ?)";
 
             try(PreparedStatement ps = conn.prepareStatement(sql)) {
                 ps.setString(1, user.getId());
