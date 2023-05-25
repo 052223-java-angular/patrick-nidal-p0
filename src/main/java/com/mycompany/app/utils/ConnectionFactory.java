@@ -9,28 +9,38 @@ import java.io.IOException;
 
 public class ConnectionFactory {
 
-    //need to use connection factory code
-    //used this code to keep connection simple
-    //entire class can be removed, just need to update DAO code
+    private static ConnectionFactory instance;
+    private Connection connection;
 
-    private static Connection conn;
-    static String url = "jdbc:postgresql://localhost:5432/";
-    static String user = "postgres";
-    static String pass = "newyorkheart";
-
-    public static Connection getConnection() {
-        if(conn == null) {
-            establishNewConnection();
-        }
-        return conn;
+    private ConnectionFactory() throws IOException, SQLException, ClassNotFoundException {
+        Class.forName("org.postgresql.Driver");
+        Properties props = getProperties();
+        connection = DriverManager.getConnection(props.getProperty("url"), props.getProperty("username"),
+                props.getProperty("password"));
     }
 
-    private static void establishNewConnection() {
-        try {
-            conn = DriverManager.getConnection(url, user, pass);
-        } catch(SQLException eSQL) {
-            System.out.println("Error establishing connection: \n" + eSQL.getMessage());
+    public static ConnectionFactory getInstance() throws ClassNotFoundException, IOException, SQLException {
+        if (instance == null || instance.getConnection().isClosed()) {
+            instance = new ConnectionFactory();
         }
+        return instance;
+    }
+
+    public Connection getConnection() {
+        return connection;
+    }
+
+    private Properties getProperties() throws IOException {
+        Properties props = new Properties();
+
+        try (InputStream iStream = getClass().getClassLoader().getResourceAsStream("application.properties")) {
+            if (iStream == null) {
+                throw new IOException("Unable to find application.properties");
+            }
+            props.load(iStream);
+        }
+
+        return props;
     }
 
 }
