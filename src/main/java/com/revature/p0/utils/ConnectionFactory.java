@@ -1,4 +1,4 @@
-package com.mycompany.app.utils;
+package com.revature.p0.utils;
 
 import java.util.Properties;
 import java.sql.DriverManager;

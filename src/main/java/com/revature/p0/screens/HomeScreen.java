@@ -1,6 +1,6 @@
-package com.mycompany.app.screens;
+package com.revature.p0.screens;
 
-import com.mycompany.app.services.RouterService;
+import com.revature.p0.services.RouterService;
 import lombok.AllArgsConstructor;
 import java.util.Scanner;
 

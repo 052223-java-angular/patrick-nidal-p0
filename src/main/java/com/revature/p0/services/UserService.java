@@ -1,7 +1,7 @@
-package com.mycompany.app.services;
+package com.revature.p0.services;
 
-import com.mycompany.app.models.User;
-import com.mycompany.app.daos.UserDAO;
+import com.revature.p0.models.User;
+import com.revature.p0.daos.UserDAO;
 import org.mindrot.jbcrypt.BCrypt;
 
 public class UserService {
