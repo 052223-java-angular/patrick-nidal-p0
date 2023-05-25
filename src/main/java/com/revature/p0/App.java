@@ -1,4 +1,4 @@
-package com.revature.p0.utils;
+package com.revature.p0;
 
 import com.revature.p0.services.RouterService;
 import com.revature.p0.models.Session;
