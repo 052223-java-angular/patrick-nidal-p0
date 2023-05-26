@@ -43,6 +43,7 @@ public class LoginScreen implements IScreen {
         }
 
         //add ROLE later
+        //maybe make optional class and determine if a user exists
         User validUser = userService.login(username, password);
 
         //set role for router service

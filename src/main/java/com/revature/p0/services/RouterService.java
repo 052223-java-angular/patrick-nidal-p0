@@ -31,6 +31,8 @@ public class RouterService {
                 //overload session -> store router instance variable as the new passed session
                 //session = beginsession;
                 new MainMenu(this, session).start(scan); //session must be updated with login info
+            case "/product":
+                //to products
             case "/order":
                 //to orders
                 //make objects for all screens and pass in session

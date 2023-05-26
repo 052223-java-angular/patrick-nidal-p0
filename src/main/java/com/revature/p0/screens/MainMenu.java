@@ -40,6 +40,9 @@ public class MainMenu implements IScreen {
                     case "3":
                         router.navigate("/review", scan);
                         break;
+                    case "4":
+                        router.navigate("/product", scan);
+                        break;
                     case "x":
                         System.out.println("\nGoodbye!");
                         break exit;
