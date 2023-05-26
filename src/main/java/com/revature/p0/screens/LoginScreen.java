@@ -14,6 +14,7 @@ import java.util.Scanner;
 public class LoginScreen implements IScreen {
     private RouterService router;
     private final UserService userService;
+    private Session session;
 
 
     public void start(Scanner scan) {
@@ -44,11 +45,17 @@ public class LoginScreen implements IScreen {
 
         //add ROLE later
         User validUser = userService.login(username, password);
+        if() {
+            System.out.println("Not a valid username");
+            return;
+        }
 
-        //set role for router service
+
         Session beginSession = new Session("returnStringId", validUser.getUsername());
+        session = beginSession;
 
         router.navigate("/menu", scan);
+
 
     }
 

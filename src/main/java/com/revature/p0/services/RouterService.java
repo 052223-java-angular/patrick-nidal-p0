@@ -23,12 +23,16 @@ public class RouterService {
                 new RegisterScreen(this, getUserService()).start(scan);
                 break;
             case "/login":
-                new LoginScreen(this, getUserService()).start(scan);
+                new LoginScreen(this, getUserService(), session).start(scan);
                 break;
             case "/menu":
-                new MainMenu(session).start(scan);
+                new MainMenu(this, session).start(scan);
+                break;
+            case "/product":
+                //to products
             case "/order":
                 //to orders
+                //make objects for all screens and pass in session
             case "/cart":
                 //to cart
             case "/review":

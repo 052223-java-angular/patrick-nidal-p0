@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.sql.ResultSet;
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 public class UserDAO implements CrudDAO<User> {
 
@@ -52,7 +53,7 @@ public class UserDAO implements CrudDAO<User> {
         return null;
     }
 
-    public User login(User user) {
+    public Optional<User> login(User user) {
         try(Connection conn = ConnectionFactory.getInstance().getConnection()) {
             String sql = "SELECT * FROM accounts WHERE username = ? AND password = ?";
             PreparedStatement ps = conn.prepareStatement(sql);
@@ -60,7 +61,11 @@ public class UserDAO implements CrudDAO<User> {
             ps.setString(2, user.getPassword());
             ResultSet rs = ps.executeQuery();
             if(rs.next()) {
-                return new User(rs.getString("username"), rs.getString("password"), rs.getString("role"));
+                User returnedUser = new User();
+                returnedUser.setUsername(rs.getString("username"));
+                returnedUser.setPassword(rs.getString("password"));
+                returnedUser.setRoleId(rs.getString("role"));
+                return Optional.of(returnedUser);
             }
 
         } catch(SQLException e) {
@@ -70,6 +75,6 @@ public class UserDAO implements CrudDAO<User> {
         } catch(ClassNotFoundException e) {
             throw new RuntimeException("Unable to load JDBC driver", e);
         }
-        return null;
+        return Optional.empty();
     }
 }
