@@ -25,12 +25,6 @@ public class RouterService {
             case "/login":
                 new LoginScreen(this, getUserService()).start(scan);
                 break;
-        }
-    }
-
-    //overload navigate for session security
-    public void navigate(String path, Scanner scan, Session session) {
-        switch(path) {
             case "/menu":
                 new MainMenu(session).start(scan);
             case "/order":
@@ -43,6 +37,7 @@ public class RouterService {
                 break;
         }
     }
+
 
     //helpers for navigations
 
