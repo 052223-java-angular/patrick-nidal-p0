@@ -19,4 +19,11 @@ public class UserService {
         return newUser;
     }
 
+    public User login(String username, String password) {
+        String hashPass = BCrypt.hashpw(password, BCrypt.gensalt());
+        User isValidUser = new User(username, hashPass);
+        userDao.login(isValidUser);
+        return isValidUser;
+    }
+
 }

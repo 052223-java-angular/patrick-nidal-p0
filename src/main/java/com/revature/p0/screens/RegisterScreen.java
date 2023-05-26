@@ -13,7 +13,6 @@ public class RegisterScreen {
     private final UserService userService;
 
     public void start(Scanner scan) {
-        String input = "";
         String username = "";
         String password = "";
 
