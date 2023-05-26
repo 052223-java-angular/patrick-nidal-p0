@@ -21,8 +21,9 @@ public class UserService {
 
     public User login(String username, String password) {
         String hashPass = BCrypt.hashpw(password, BCrypt.gensalt());
-        User validUser = new User(username, hashPass);
-        return validUser;
+        User isValidUser = new User(username, hashPass);
+        userDao.login(isValidUser);
+        return isValidUser;
     }
 
 }

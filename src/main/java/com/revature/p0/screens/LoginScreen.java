@@ -23,7 +23,8 @@ public class LoginScreen implements IScreen {
         exit: {
             while(true) {
                 clearScreen();
-                System.out.println("Welcome to the login screen!");
+                //if have session as instance variable can add username to print statement
+                System.out.println("Welcome to the login screen");
 
                 username = getUsername(scan);
 
