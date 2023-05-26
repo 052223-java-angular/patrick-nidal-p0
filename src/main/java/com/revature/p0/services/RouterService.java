@@ -29,6 +29,7 @@ public class RouterService {
                 //do a check to make sure session has a role?
                 //could make overloaded navigate method and overwrite session instance variable with session info
                 //overload session -> store router instance variable as the new passed session
+                //session = beginsession;
                 new MainMenu(this, session).start(scan); //session must be updated with login info
             case "/order":
                 //to orders
@@ -39,6 +40,11 @@ public class RouterService {
             default:
                 break;
         }
+    }
+
+    public void navigate(String path, Scanner scan, Session toUpdateSession) {
+        session = toUpdateSession;
+        new MainMenu(this, session).start(scan);
     }
 
 
