@@ -20,7 +20,7 @@ public class MainMenu implements IScreen {
         exit: {
             while(true) {
                 clearScreen();
-                System.out.println("Welcome to eCommerce site - Home.");
+                System.out.println("Welcome to eCommerce site - MainMenu.");
                 System.out.println("\n[1] Orders");
                 System.out.println("[2] Cart");
                 System.out.println("[3] Review");

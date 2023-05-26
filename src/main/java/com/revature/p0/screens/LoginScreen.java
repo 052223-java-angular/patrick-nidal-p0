@@ -45,8 +45,9 @@ public class LoginScreen implements IScreen {
 
         //add ROLE later
         User validUser = userService.login(username, password);
-        if(userService.checkValidUser()) {
+        if() {
             System.out.println("Not a valid username");
+            return;
         }
 
 

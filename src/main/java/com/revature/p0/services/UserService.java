@@ -26,8 +26,4 @@ public class UserService {
         return isValidUser;
     }
 
-    public boolean checkValidUser() {
-
-    }
-
 }

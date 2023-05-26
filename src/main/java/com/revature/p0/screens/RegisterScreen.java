@@ -41,7 +41,6 @@ public class RegisterScreen {
                 switch(scan.nextLine()) {
                     case "y":
                         User createdUser = userService.register(username, password);
-                        router.navigate("/menu", scan);
                         break exit;
                     case "n":
                         clearScreen();
