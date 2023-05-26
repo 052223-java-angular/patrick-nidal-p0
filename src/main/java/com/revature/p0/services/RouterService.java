@@ -33,6 +33,7 @@ public class RouterService {
                 new MainMenu(this, session).start(scan); //session must be updated with login info
             case "/order":
                 //to orders
+                //make objects for all screens and pass in session
             case "/cart":
                 //to cart
             case "/review":
