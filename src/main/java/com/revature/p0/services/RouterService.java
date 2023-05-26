@@ -23,14 +23,11 @@ public class RouterService {
                 new RegisterScreen(this, getUserService()).start(scan);
                 break;
             case "/login":
-                new LoginScreen(this, getUserService()).start(scan);
+                new LoginScreen(this, getUserService(), session).start(scan);
                 break;
             case "/menu":
-                //do a check to make sure session has a role?
-                //could make overloaded navigate method and overwrite session instance variable with session info
-                //overload session -> store router instance variable as the new passed session
-                //session = beginsession;
-                new MainMenu(this, session).start(scan); //session must be updated with login info
+                new MainMenu(this, session).start(scan);
+                break;
             case "/product":
                 //to products
             case "/order":
@@ -43,11 +40,6 @@ public class RouterService {
             default:
                 break;
         }
-    }
-
-    public void navigate(String path, Scanner scan, Session toUpdateSession) {
-        session = toUpdateSession;
-        new MainMenu(this, session).start(scan);
     }
 
 
