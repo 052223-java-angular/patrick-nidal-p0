@@ -26,7 +26,10 @@ public class RouterService {
                 new LoginScreen(this, getUserService()).start(scan);
                 break;
             case "/menu":
-                new MainMenu(session).start(scan);
+                //do a check to make sure session has a role?
+                //could make overloaded navigate method and overwrite session instance variable with session info
+                //overload session -> store router instance variable as the new passed session
+                new MainMenu(this, session).start(scan); //session must be updated with login info
             case "/order":
                 //to orders
             case "/cart":

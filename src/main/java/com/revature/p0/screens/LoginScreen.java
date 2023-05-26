@@ -46,9 +46,11 @@ public class LoginScreen implements IScreen {
         User validUser = userService.login(username, password);
 
         //set role for router service
+        //begin new session and send back to router?
         Session beginSession = new Session("returnStringId", validUser.getUsername());
 
         router.navigate("/menu", scan);
+        //router.navigate("/menu", scan, beginSession);
 
     }
 
