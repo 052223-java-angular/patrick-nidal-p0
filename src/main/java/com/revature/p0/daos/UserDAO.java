@@ -2,7 +2,6 @@ package com.revature.p0.daos;
 
 import com.revature.p0.models.User;
 import com.revature.p0.utils.ConnectionFactory;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
