@@ -32,11 +32,14 @@ public class ProductScreen implements IScreen{
                 int userChoice = scan.nextInt();
                 Product productChoice = list.get(userChoice);
                 System.out.println(productChoice.getDescription());
+
                 //product service
+                //search by name, category, price range
 
                 //switch(scan.nextLine()) {
-                    // select a product and determine number to add to cart
-                    //
+                    // 1. view all products
+                    // 2. search products
+                    // invalid choice
                 //}
 
                 break exit;
