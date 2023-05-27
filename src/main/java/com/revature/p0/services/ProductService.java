@@ -23,6 +23,7 @@ public class ProductService {
     }
 
     public List<Product> getProductByName(String name) {
+        System.out.println("Printing!");
         return productDao.findProductByName(name);
     }
 
