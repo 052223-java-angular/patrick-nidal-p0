@@ -3,6 +3,7 @@ package com.revature.p0.services;
 import com.revature.p0.models.User;
 import com.revature.p0.daos.UserDAO;
 import org.mindrot.jbcrypt.BCrypt;
+import java.util.Optional;
 
 public class UserService {
 
@@ -15,15 +16,25 @@ public class UserService {
     public User register(String username, String password) {
         String hashPass = BCrypt.hashpw(password, BCrypt.gensalt());
         User newUser = new User(username, hashPass, "A");
-        userDao.save(newUser);
-        return newUser;
+        if(userDao.create(newUser)) {
+            return newUser;
+        }
+        return null;
     }
 
     public User login(String username, String password) {
-        String hashPass = BCrypt.hashpw(password, BCrypt.gensalt());
-        User isValidUser = new User(username, hashPass);
-        userDao.login(isValidUser);
-        return isValidUser;
+        //dont delete comment please
+        //https://stackoverflow.com/questions/277044/do-i-need-to-store-the-salt-with-bcrypt
+
+        Optional<User> checkedUser = userDao.login(username);
+        if(checkedUser.isEmpty()) {
+            return null;
+        }
+        if(!BCrypt.checkpw(password, checkedUser.get().getPassword())) {
+            return null;
+        }
+
+        return checkedUser.get();
     }
 
 }

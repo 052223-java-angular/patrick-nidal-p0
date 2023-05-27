@@ -3,6 +3,7 @@ package com.revature.p0.screens;
 import com.revature.p0.services.RouterService;
 import com.revature.p0.services.UserService;
 import com.revature.p0.models.User;
+import com.revature.p0.models.Session;
 import lombok.AllArgsConstructor;
 
 import java.util.Scanner;
@@ -11,6 +12,7 @@ import java.util.Scanner;
 public class RegisterScreen {
     private final RouterService router;
     private final UserService userService;
+    private Session session;
 
     public void start(Scanner scan) {
         String username = "";
@@ -22,13 +24,11 @@ public class RegisterScreen {
                 System.out.println("Welcome to the register screen!");
 
                 username = getUsername(scan);
-
                 if(username.equals("x")) {
                     break exit;
                 }
 
                 password = getPassword(scan);
-
                 if(password.equals("x")) {
                     break exit;
                 }
@@ -36,11 +36,15 @@ public class RegisterScreen {
                 clearScreen();
                 System.out.println("Please confirm your credentials:");
                 System.out.println("\nUsername: " + username);
+                System.out.println("Password: " + password);
                 System.out.println("\nEnter (y/n): ");
 
                 switch(scan.nextLine()) {
                     case "y":
                         User createdUser = userService.register(username, password);
+                        session.setSession(createdUser);
+                        //bypass log in screen if successful registration
+                        router.navigate("/menu", scan);
                         break exit;
                     case "n":
                         clearScreen();
