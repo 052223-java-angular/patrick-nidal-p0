@@ -3,6 +3,7 @@ package com.revature.p0.services;
 import com.revature.p0.models.User;
 import com.revature.p0.daos.UserDAO;
 import org.mindrot.jbcrypt.BCrypt;
+import java.util.Optional;
 
 public class UserService {
 
@@ -19,11 +20,11 @@ public class UserService {
         return newUser;
     }
 
-    public User login(String username, String password) {
+    public boolean login(String username, String password) {
         String hashPass = BCrypt.hashpw(password, BCrypt.gensalt());
         User isValidUser = new User(username, hashPass);
-        userDao.login(isValidUser);
-        return isValidUser;
+        Optional<User> checkedUser = userDao.login(isValidUser);
+        return checkedUser.isPresent();
     }
 
 }

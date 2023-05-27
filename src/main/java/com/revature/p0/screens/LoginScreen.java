@@ -38,23 +38,18 @@ public class LoginScreen implements IScreen {
                 if(password.equals("x")) {
                     break exit;
                 }
-                break;
+                //add ROLE later
+                boolean isValidUser = userService.login(username, password);
+                if(!isValidUser) {
+                    System.out.println("Not a valid username");
+                    continue;
+                }
+
+
+                router.navigate("/menu", scan);
 
             }
         }
-
-        //add ROLE later
-        User validUser = userService.login(username, password);
-        if() {
-            System.out.println("Not a valid username");
-            return;
-        }
-
-
-        Session beginSession = new Session("returnStringId", validUser.getUsername());
-        session = beginSession;
-
-        router.navigate("/menu", scan);
 
 
     }
