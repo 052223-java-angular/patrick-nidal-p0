@@ -21,9 +21,18 @@ public class ProductScreen implements IScreen{
         exit:
             while(true) {
                 System.out.println("Available products: ");
-                for(Product product : productService.getAllProducts()) {
-                    System.out.println(product.getDescription());
+                int counter = 1;
+                List<Product> list = productService.getAllProducts();
+                for(Product product : list) {
+                    System.out.println("press " + counter + " for " + product.getDescription());
+                    counter++;
                 }
+
+                System.out.println("select a product: ");
+                int userChoice = scan.nextInt();
+                Product productChoice = list.get(userChoice);
+                System.out.println(productChoice.getDescription());
+                //product service
 
                 //switch(scan.nextLine()) {
                     // select a product and determine number to add to cart
