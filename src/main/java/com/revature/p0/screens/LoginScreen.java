@@ -24,7 +24,7 @@ public class LoginScreen implements IScreen {
         exit: {
             while(true) {
                 clearScreen();
-                //if have session as instance variable can add username to print statement
+
                 System.out.println("Welcome to the login screen");
 
                 username = getUsername(scan);
@@ -39,12 +39,11 @@ public class LoginScreen implements IScreen {
                     break exit;
                 }
                 //add ROLE later
-                boolean isValidUser = userService.login(username, password);
-                if(!isValidUser) {
+                User isValidUser = userService.login(username, password);
+                if(isValidUser == null) {
                     System.out.println("Not a valid username");
                     continue;
                 }
-
 
                 router.navigate("/menu", scan);
 

@@ -53,18 +53,17 @@ public class UserDAO implements CrudDAO<User> {
         return null;
     }
 
-    public Optional<User> login(User user) {
+    public Optional<User> login(String username) {
         try(Connection conn = ConnectionFactory.getInstance().getConnection()) {
-            String sql = "SELECT * FROM accounts WHERE username = ? AND password = ?";
+            String sql = "SELECT * FROM accounts WHERE username = ?";
             PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setString(1, user.getUsername());
-            ps.setString(2, user.getPassword());
+            ps.setString(1, username);
             ResultSet rs = ps.executeQuery();
             if(rs.next()) {
                 User returnedUser = new User();
                 returnedUser.setUsername(rs.getString("username"));
                 returnedUser.setPassword(rs.getString("password"));
-                returnedUser.setRoleId(rs.getString("role"));
+                returnedUser.setRoleId(rs.getString("role_id"));
                 return Optional.of(returnedUser);
             }
 
@@ -76,5 +75,28 @@ public class UserDAO implements CrudDAO<User> {
             throw new RuntimeException("Unable to load JDBC driver", e);
         }
         return Optional.empty();
+    }
+
+    public boolean create(User user) {
+        boolean creationSuccess = false;
+        try(Connection conn = ConnectionFactory.getInstance().getConnection()) {
+            String sql = "INSERT INTO accounts (id, username, password, role_id) VALUES (?, ?, ?, ?)";
+
+            try(PreparedStatement ps = conn.prepareStatement(sql)) {
+                ps.setString(1, user.getId());
+                ps.setString(2, user.getUsername());
+                ps.setString(3, user.getPassword());
+                ps.setString(4, user.getRoleId());
+                creationSuccess = ps.executeUpdate() == 1;
+            }
+
+        } catch(SQLException e) {
+            throw new RuntimeException("Unable to connect to db", e);
+        } catch(IOException e) {
+            throw new RuntimeException("Cannot find application.properties", e);
+        } catch(ClassNotFoundException e) {
+            throw new RuntimeException("Unable to load JDBC driver", e);
+        }
+        return creationSuccess;
     }
 }
