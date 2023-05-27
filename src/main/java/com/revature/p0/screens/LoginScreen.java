@@ -45,6 +45,8 @@ public class LoginScreen implements IScreen {
                     continue;
                 }
 
+                session.setSession(isValidUser);
+
                 router.navigate("/menu", scan);
 
             }

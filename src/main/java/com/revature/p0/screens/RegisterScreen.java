@@ -43,6 +43,7 @@ public class RegisterScreen {
                     case "y":
                         User createdUser = userService.register(username, password);
                         session.setSession(createdUser);
+                        //bypass log in screen if successful registration
                         router.navigate("/menu", scan);
                         break exit;
                     case "n":

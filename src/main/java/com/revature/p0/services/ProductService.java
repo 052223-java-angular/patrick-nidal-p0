@@ -1,6 +1,9 @@
 package com.revature.p0.services;
 
 import com.revature.p0.daos.ProductDAO;
+import com.revature.p0.models.Product;
+
+import java.util.List;
 
 public class ProductService {
 
@@ -10,6 +13,9 @@ public class ProductService {
         this.productDao = productDao;
     }
 
+    public List<Product> getAllProducts() {
+        return productDao.findAll();
+    }
 
 
 }

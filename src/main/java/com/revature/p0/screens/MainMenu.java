@@ -7,7 +7,6 @@ import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 public class MainMenu implements IScreen {
-    //use session for menu navigation
     private final RouterService router;
     private Session session;
 
@@ -20,10 +19,11 @@ public class MainMenu implements IScreen {
         exit: {
             while(true) {
                 clearScreen();
-                System.out.println("Welcome to eCommerce site - MainMenu.");
-                System.out.println("\n[1] Orders");
+                System.out.println("Welcome to MainMenu.");
+                System.out.println("\n[1] Products");
                 System.out.println("[2] Cart");
                 System.out.println("[3] Review");
+                System.out.println("[4] Orders");
                 System.out.println("[x] Exit");
 
                 System.out.print("\nEnter:");
@@ -32,16 +32,17 @@ public class MainMenu implements IScreen {
 
                 switch(input.toLowerCase()) {
                     case "1":
-                        router.navigate("/orders", scan);
+                        System.out.println("is this line being hit");
+                        router.navigate("/product", scan);
                         break;
                     case "2":
-                        router.navigate("/cart", scan);
+                        router.navigate("/order", scan);
                         break;
                     case "3":
-                        router.navigate("/review", scan);
+                        router.navigate("/cart", scan);
                         break;
                     case "4":
-                        router.navigate("/product", scan);
+                        router.navigate("/review", scan);
                         break;
                     case "x":
                         System.out.println("\nGoodbye!");
