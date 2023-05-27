@@ -14,7 +14,7 @@ public class UserService {
 
     public User register(String username, String password) {
         String hashPass = BCrypt.hashpw(password, BCrypt.gensalt());
-        User newUser = new User(username, hashPass, "b");
+        User newUser = new User(username, hashPass, "A");
         userDao.save(newUser);
         return newUser;
     }
