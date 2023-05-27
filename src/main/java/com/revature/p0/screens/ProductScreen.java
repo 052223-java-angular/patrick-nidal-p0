@@ -1,6 +1,8 @@
 package com.revature.p0.screens;
 
 import com.revature.p0.services.RouterService;
+import com.revature.p0.services.ProductService;
+import com.revature.p0.models.Session;
 import lombok.AllArgsConstructor;
 
 import java.util.Scanner;
@@ -9,6 +11,8 @@ import java.util.Scanner;
 public class ProductScreen implements IScreen{
 
     private final RouterService router;
+    private final ProductService productService;
+    private Session session;
 
     @Override
     public void start(Scanner scan) {

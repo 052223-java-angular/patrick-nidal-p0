@@ -1,11 +1,9 @@
 package com.revature.p0.services;
 
-import com.revature.p0.screens.HomeScreen;
-import com.revature.p0.screens.RegisterScreen;
-import com.revature.p0.screens.MainMenu;
+import com.revature.p0.daos.ProductDAO;
+import com.revature.p0.screens.*;
 import com.revature.p0.daos.UserDAO;
 import com.revature.p0.models.Session;
-import com.revature.p0.screens.LoginScreen;
 import lombok.AllArgsConstructor;
 import java.util.Scanner;
 
@@ -29,7 +27,8 @@ public class RouterService {
                 new MainMenu(this, session).start(scan);
                 break;
             case "/product":
-                //to products
+                new ProductScreen(this, getProductService(), session);
+                break;
             case "/order":
                 //to orders
                 //make objects for all screens and pass in session
@@ -47,6 +46,10 @@ public class RouterService {
 
     private UserService getUserService() {
         return new UserService(new UserDAO());
+    }
+
+    private ProductService getProductService() {
+        return new ProductService(new ProductDAO());
     }
 
 }
