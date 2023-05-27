@@ -17,5 +17,7 @@ public class ProductService {
         return productDao.findAll();
     }
 
+    //searching by category, name, price range
+
 
 }

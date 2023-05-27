@@ -27,7 +27,7 @@ public class RouterService {
                 new MainMenu(this, session).start(scan);
                 break;
             case "/product":
-                new ProductScreen(this, getProductService(), session);
+                new ProductScreen(this, getProductService(), session).start(scan);
                 break;
             case "/order":
                 //to orders
