@@ -18,6 +18,18 @@ public class ProductService {
     }
 
     //searching by category, name, price range
+    public List<Product> getProductByCategory(String category) {
+        return productDao.findProductByCategory(category);
+    }
+
+    public List<Product> getProductByName(String name) {
+        return productDao.findProductByName(name);
+    }
+
+    public List<Product> getProductByPriceRange(double priceLower, double priceUpper) {
+        return productDao.findProductByPriceRange(priceLower, priceUpper);
+    }
+
 
 
 }
