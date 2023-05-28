@@ -9,14 +9,15 @@ import lombok.*;
 @ToString
 
 public class Product {
-    private String name;
+    private String id;
+
     private String description;
     private double price;
     private int onHand;
-    private int category;
+    private String category;
 
-    public Product(String name, String description, double price, int onHand) {
-        this.name = name;
+    public Product(String id, String description, double price, int onHand) {
+        this.id = id;
         this.description = description;
         this.price = price;
         this.onHand = onHand;
