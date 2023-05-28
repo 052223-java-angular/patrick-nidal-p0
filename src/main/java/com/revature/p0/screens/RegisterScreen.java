@@ -1,11 +1,13 @@
 package com.revature.p0.screens;
 
+import com.revature.p0.models.Cart;
 import com.revature.p0.services.RouterService;
 import com.revature.p0.services.UserService;
 import com.revature.p0.models.User;
 import com.revature.p0.models.Session;
 import lombok.AllArgsConstructor;
 
+import java.sql.Struct;
 import java.util.Scanner;
 
 @AllArgsConstructor
@@ -43,6 +45,9 @@ public class RegisterScreen {
                     case "y":
                         User createdUser = userService.register(username, password);
                         session.setSession(createdUser);
+
+                        session.setCartId(userService.createCart(createdUser.getId()));
+
                         //bypass log in screen if successful registration
                         router.navigate("/menu", scan);
                         break exit;

@@ -3,6 +3,8 @@ package com.revature.p0.models;
 
 import lombok.*;
 
+import java.util.UUID;
+
 
 @NoArgsConstructor
 @Getter
@@ -12,10 +14,14 @@ public class Cart {
     String id;
     String accountId;
 
-    public Cart(String id, String accountId) {
-        this.id = id;
+
+
+    public Cart(String accountId) {
+        this.id = UUID.randomUUID().toString();
         this.accountId = accountId;
     }
+
+
 
 
 

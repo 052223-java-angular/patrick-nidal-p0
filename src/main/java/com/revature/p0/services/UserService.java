@@ -1,5 +1,6 @@
 package com.revature.p0.services;
 
+import com.revature.p0.models.Cart;
 import com.revature.p0.models.User;
 import com.revature.p0.daos.UserDAO;
 import org.mindrot.jbcrypt.BCrypt;
@@ -35,6 +36,23 @@ public class UserService {
         }
 
         return checkedUser.get();
+    }
+
+    public String createCart(String account_id) {
+
+        Cart cart = new Cart(account_id);
+        boolean isExist = false;
+
+
+        while(!isExist) {
+            isExist = userDao.createCart(cart);
+        }
+        return cart.getId();
+    }
+
+    public String getCartId(String accountId) {
+        return userDao.getCartId(accountId);
+
     }
 
 }

@@ -1,5 +1,7 @@
 package com.revature.p0.services;
 
+import com.revature.p0.daos.CartDAO;
+import com.revature.p0.daos.CartItemsDAO;
 import com.revature.p0.daos.ProductDAO;
 import com.revature.p0.screens.*;
 import com.revature.p0.daos.UserDAO;
@@ -27,12 +29,13 @@ public class RouterService {
                 new MainMenu(this, session).start(scan);
                 break;
             case "/product":
-                new ProductScreen(this, getProductService(), session).start(scan);
+                new ProductScreen(this, getProductService(), session, getCartService()).start(scan);
                 break;
-            case "/order":
+            case "/cart":
+                new CartScreen(this, getCartService(), session).start(scan);
                 //to orders
                 //make objects for all screens and pass in session
-            case "/cart":
+            case "/order":
                 //to cart
             case "/review":
                 //to reviews
@@ -51,5 +54,9 @@ public class RouterService {
     private ProductService getProductService() {
         return new ProductService(new ProductDAO());
     }
+    private CartItemService getCartService() {
+        return new CartItemService(new CartItemsDAO());
+    }
+
 
 }
