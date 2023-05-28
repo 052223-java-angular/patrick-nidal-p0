@@ -44,7 +44,7 @@ public class ProductDAO implements CrudDAO {
             try(PreparedStatement ps = conn.prepareStatement(sql)) {
                 ResultSet rs = ps.executeQuery();
                 while (rs.next()) {
-                    Product product = new Product(rs.getString("name") , rs.getString("description"),
+                    Product product = new Product( rs.getString("id"), rs.getString("description"),
                             rs.getDouble("price"), rs.getInt("on_hand") );
                     products.add(product);
                 }
@@ -68,16 +68,18 @@ public class ProductDAO implements CrudDAO {
     public List<Product> findProductByCategory(String category) {
         List<Product> products = new ArrayList<>();
         try(Connection conn = ConnectionFactory.getInstance().getConnection()) {
-            String sql = "SELECT * FROM products WHERE category = ?";
+
+            String sql = "SELECT * FROM products WHERE category_id = ?";
+
 
             try(PreparedStatement ps = conn.prepareStatement(sql)) {
                 ps.setString(1, category);
 
                 ResultSet rs = ps.executeQuery();
-                if (rs.next()) {
-                    Product product = new Product(rs.getString("name"),
-                            rs.getString("description"), rs.getDouble("price"),
-                            rs.getInt("on_hand") );
+                while (rs.next()) {
+                    Product product = new Product(rs.getString("id"), rs.getString("description"),
+                             rs.getDouble("price"),
+                            rs.getInt("on_hand"), rs.getString("category_id"));
                     products.add(product);
                 }
             }
@@ -96,14 +98,14 @@ public class ProductDAO implements CrudDAO {
     public List<Product> findProductByName(String name) {
         List<Product> products = new ArrayList<>();
         try(Connection conn = ConnectionFactory.getInstance().getConnection()) {
-            String sql = "SELECT * FROM products WHERE name = ?";
+            String sql = "SELECT * FROM products WHERE id = ?";
 
             try(PreparedStatement ps = conn.prepareStatement(sql)) {
                 ps.setString(1, name);
 
                 ResultSet rs = ps.executeQuery();
                 if (rs.next()) {
-                    Product product = new Product(rs.getString("name"), rs.getString("description"),
+                    Product product = new Product(rs.getString("id"), rs.getString("description"),
                             rs.getDouble("price"), rs.getInt("on_hand") );
                     products.add(product);
                 }
@@ -130,8 +132,8 @@ public class ProductDAO implements CrudDAO {
                 ps.setDouble(2, priceUpper);
 
                 ResultSet rs = ps.executeQuery();
-                if (rs.next()) {
-                    Product product = new Product(rs.getString("name"), rs.getString("description"),
+                while (rs.next()) {
+                    Product product = new Product(rs.getString("id"), rs.getString("description"),
                             rs.getDouble("price"), rs.getInt("on_hand") );
                     products.add(product);
                 }
@@ -147,5 +149,7 @@ public class ProductDAO implements CrudDAO {
 
         return products;
     }
+
+
 
 }
