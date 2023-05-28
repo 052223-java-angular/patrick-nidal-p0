@@ -2,6 +2,8 @@ package com.revature.p0.models;
 
 import lombok.*;
 
+import java.util.UUID;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -15,9 +17,17 @@ public class CartItems {
     private String productId;
     private String cartId;
 
-    public CartItems(int quantity, double price, String productId) {
+    public CartItems(int quantity, double price, String productId, String cartId) {
+        this.id = UUID.randomUUID().toString();
         this.quantity = quantity;
         this.price = price;
         this.productId = productId;
+        this.cartId = cartId;
     }
+
+
+
+
+
+
 }
