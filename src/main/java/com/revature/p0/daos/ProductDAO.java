@@ -67,7 +67,7 @@ public class ProductDAO implements CrudDAO {
     public List<Product> findProductByCategory(String category) {
         List<Product> products = new ArrayList<>();
         try(Connection conn = ConnectionFactory.getInstance().getConnection()) {
-            String sql = "SELECT * FROM products WHERE category = ?;";
+            String sql = "SELECT * FROM products WHERE category = ?";
 
             try(PreparedStatement ps = conn.prepareStatement(sql)) {
                 ps.setString(1, category);
@@ -122,7 +122,7 @@ public class ProductDAO implements CrudDAO {
     public List<Product> findProductByPriceRange(double priceLower, double priceUpper) {
         List<Product> products = new ArrayList<>();
         try(Connection conn = ConnectionFactory.getInstance().getConnection()) {
-            String sql = "SELECT * FROM products WHERE price BETWEEN ? AND ?;";
+            String sql = "SELECT * FROM products WHERE price BETWEEN ? AND ?";
 
             try(PreparedStatement ps = conn.prepareStatement(sql)) {
                 ps.setDouble(1, priceLower);
