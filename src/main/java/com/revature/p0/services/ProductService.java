@@ -1,6 +1,7 @@
 package com.revature.p0.services;
 
 import com.revature.p0.daos.ProductDAO;
+import com.revature.p0.models.CartItems;
 import com.revature.p0.models.Product;
 
 import java.util.List;
@@ -31,7 +32,6 @@ public class ProductService {
     public List<Product> getProductByPriceRange(double priceLower, double priceUpper) {
         return productDao.findProductByPriceRange(priceLower, priceUpper);
     }
-
 
 
 }

@@ -30,10 +30,9 @@ public class RouterService {
                 break;
             case "/cart":
                 new CartScreen(this, getCartService(), session).start(scan);
-                //to orders
-                //make objects for all screens and pass in session
+                break;
             case "/order":
-                //to cart
+                new OrderScreen(this, getOrderService(), session).start(scan);
             case "/review":
                 //to reviews
             default:
@@ -55,6 +54,8 @@ public class RouterService {
         return new CartItemService(new CartItemsDAO());
     }
     private CategoryService getCategoryService() {return new CategoryService(new CategoryDAO());}
+
+    private OrderService getOrderService() {return new OrderService(new OrderDAO());}
 
 
 }
