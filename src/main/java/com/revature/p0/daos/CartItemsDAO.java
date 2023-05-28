@@ -70,7 +70,7 @@ public class CartItemsDAO implements CrudDAO {
     public List<CartItems> findAllByCartId(String cartId) {
         List<CartItems> cartItems = new ArrayList<>();
         try(Connection conn = ConnectionFactory.getInstance().getConnection()) {
-            String sql = "SELECT * FROM cart_id WHERE cart_id = ?";
+            String sql = "SELECT * FROM cart_items WHERE cart_id = ?";
 
             try(PreparedStatement ps = conn.prepareStatement(sql)) {
                 ps.setString(1, cartId);

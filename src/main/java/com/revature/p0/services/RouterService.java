@@ -1,10 +1,7 @@
 package com.revature.p0.services;
 
-import com.revature.p0.daos.CartDAO;
-import com.revature.p0.daos.CartItemsDAO;
-import com.revature.p0.daos.ProductDAO;
+import com.revature.p0.daos.*;
 import com.revature.p0.screens.*;
-import com.revature.p0.daos.UserDAO;
 import com.revature.p0.models.Session;
 import lombok.AllArgsConstructor;
 import java.util.Scanner;
@@ -29,7 +26,7 @@ public class RouterService {
                 new MainMenu(this, session).start(scan);
                 break;
             case "/product":
-                new ProductScreen(this, getProductService(), session, getCartService()).start(scan);
+                new ProductScreen(this, getProductService(), session, getCartService(), getCategoryService()).start(scan);
                 break;
             case "/cart":
                 new CartScreen(this, getCartService(), session).start(scan);
@@ -57,6 +54,7 @@ public class RouterService {
     private CartItemService getCartService() {
         return new CartItemService(new CartItemsDAO());
     }
+    private CategoryService getCategoryService() {return new CategoryService(new CategoryDAO());}
 
 
 }
