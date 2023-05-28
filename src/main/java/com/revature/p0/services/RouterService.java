@@ -26,7 +26,7 @@ public class RouterService {
                 new MainMenu(this, session).start(scan);
                 break;
             case "/product":
-                new ProductScreen(this, getProductService(), session, getCartService()).start(scan);
+                new ProductScreen(this, getProductService(), session, getCartService(), getCategoryService()).start(scan);
                 break;
             case "/cart":
                 new CartScreen(this, getCartService(), session).start(scan);
@@ -53,6 +53,7 @@ public class RouterService {
     private CartItemService getCartService() {
         return new CartItemService(new CartItemsDAO());
     }
+    private CategoryService getCategoryService() {return new CategoryService(new CategoryDAO());}
 
     private OrderService getOrderService() {return new OrderService(new OrderDAO());}
 
