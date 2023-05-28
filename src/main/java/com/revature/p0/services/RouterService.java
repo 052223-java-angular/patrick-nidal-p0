@@ -33,10 +33,9 @@ public class RouterService {
                 break;
             case "/cart":
                 new CartScreen(this, getCartService(), session).start(scan);
-                //to orders
-                //make objects for all screens and pass in session
+                break;
             case "/order":
-                //to cart
+                new OrderScreen(this, session).start(scan);
             case "/review":
                 //to reviews
             default:

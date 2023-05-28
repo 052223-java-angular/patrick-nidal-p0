@@ -22,4 +22,11 @@ public class CartItemService {
         return cartItemsDAO.findAllByCartId(cartId);
     }
 
+    public void cartQuantityRemoval(int quantityChoice, double price, String Id) {
+        boolean success = false;
+        while(!success) {
+            success = cartItemsDAO.cartQuantityRemoval(quantityChoice, price, Id);
+        }
+    }
+
 }

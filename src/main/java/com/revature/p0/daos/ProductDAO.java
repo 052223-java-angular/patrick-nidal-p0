@@ -1,5 +1,6 @@
 package com.revature.p0.daos;
 
+import com.revature.p0.models.CartItems;
 import com.revature.p0.models.Product;
 import com.revature.p0.utils.ConnectionFactory;
 
