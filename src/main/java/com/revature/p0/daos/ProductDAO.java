@@ -67,7 +67,9 @@ public class ProductDAO implements CrudDAO {
     public List<Product> findProductByCategory(String category) {
         List<Product> products = new ArrayList<>();
         try(Connection conn = ConnectionFactory.getInstance().getConnection()) {
+
             String sql = "SELECT * FROM products WHERE category_id = ?";
+
 
             try(PreparedStatement ps = conn.prepareStatement(sql)) {
                 ps.setString(1, category);
