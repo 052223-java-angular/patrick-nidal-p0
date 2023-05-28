@@ -5,6 +5,8 @@ import com.revature.p0.daos.CartItemsDAO;
 import com.revature.p0.models.CartItems;
 import com.revature.p0.models.Product;
 
+import java.util.List;
+
 public class CartItemService {
     private final CartItemsDAO cartItemsDAO;
 
@@ -14,6 +16,10 @@ public class CartItemService {
 
     public void insertItems(CartItems cartItems) {
         cartItemsDAO.createCartItems(cartItems);
+    }
+
+    public List<CartItems> getAllCartItems(String cartId) {
+        return cartItemsDAO.findAllByCartId(cartId);
     }
 
 }

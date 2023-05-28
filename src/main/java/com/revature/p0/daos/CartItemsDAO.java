@@ -1,12 +1,16 @@
 package com.revature.p0.daos;
 
 import com.revature.p0.models.CartItems;
+import com.revature.p0.models.Order;
+import com.revature.p0.models.Product;
 import com.revature.p0.utils.ConnectionFactory;
 
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CartItemsDAO implements CrudDAO {
@@ -32,9 +36,11 @@ public class CartItemsDAO implements CrudDAO {
     }
 
     @Override
-    public List findAll() {
+    public List<CartItems> findAll() {
         return null;
     }
+
+
 
     public boolean createCartItems(CartItems cartItems) {
         boolean success = false;
@@ -59,5 +65,32 @@ public class CartItemsDAO implements CrudDAO {
             throw new RuntimeException("Unable to load JDBC driver", e);
         }
         return success;
+    }
+
+    public List<CartItems> findAllByCartId(String cartId) {
+        List<CartItems> cartItems = new ArrayList<>();
+        try(Connection conn = ConnectionFactory.getInstance().getConnection()) {
+            String sql = "SELECT * FROM cart_id WHERE cart_id = ?";
+
+            try(PreparedStatement ps = conn.prepareStatement(sql)) {
+                ps.setString(1, cartId);
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    CartItems cart = new CartItems(rs.getInt("quantity") , rs.getDouble("price"),
+                            rs.getString("product_id"));
+                    cartItems.add(cart);
+                }
+            }
+
+        } catch(SQLException e) {
+            throw new RuntimeException("Unable to connect to db", e);
+        } catch(IOException e) {
+            throw new RuntimeException("Cannot find application.properties", e);
+        } catch(ClassNotFoundException e) {
+            throw new RuntimeException("Unable to load JDBC driver", e);
+        }
+
+        return cartItems;
+
     }
 }

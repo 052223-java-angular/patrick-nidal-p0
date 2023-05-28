@@ -52,7 +52,6 @@ public class MainMenu implements IScreen {
                         System.out.println("Invalid option!");
                         System.out.println("\nPress enter to continue...");
                         scan.nextLine();
-
                 }
 
             }
