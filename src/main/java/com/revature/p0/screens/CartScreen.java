@@ -59,6 +59,7 @@ public class CartScreen implements IScreen {
                         break;
                     case "3":
                         System.out.println("Redirecting to menu for checkout");
+                        router.navigate("/menu", scan);
                         break exit;
                     default:
                         clearScreen();
