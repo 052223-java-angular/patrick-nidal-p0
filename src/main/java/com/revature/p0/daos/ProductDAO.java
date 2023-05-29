@@ -12,29 +12,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProductDAO implements CrudDAO<Product> {
+public class ProductDAO {
 
-    @Override
-    public void save(Product product) {
-
-    }
-
-    @Override
-    public void update(String id) {
-
-    }
-
-    @Override
-    public void delete(String id) {
-
-    }
-
-    @Override
-    public Product findById(String id) {
-        return null;
-    }
-
-    @Override
     public List<Product> findAll() {
 
         List<Product> products = new ArrayList<>();

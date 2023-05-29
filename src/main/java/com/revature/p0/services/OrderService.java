@@ -2,20 +2,20 @@ package com.revature.p0.services;
 
 import com.revature.p0.daos.CartItemsDAO;
 import com.revature.p0.daos.OrderDAO;
-import com.revature.p0.models.CartItems;
-import com.revature.p0.models.Order;
-import com.revature.p0.models.Product;
-import com.revature.p0.models.Session;
+import com.revature.p0.daos.OrderItemsDAO;
+import com.revature.p0.models.*;
 
 import java.util.List;
 
 public class OrderService {
     private final OrderDAO orderDao;
     private final CartItemsDAO cartItemsDao;
+    private final OrderItemsDAO orderItemsDao;
 
-    public OrderService(OrderDAO orderDao, CartItemsDAO cartItemsDao) {
+    public OrderService(OrderDAO orderDao, CartItemsDAO cartItemsDao, OrderItemsDAO orderItemsDao) {
         this.orderDao = orderDao;
         this.cartItemsDao = cartItemsDao;
+        this.orderItemsDao = orderItemsDao;
     }
 
     public double returnTotal(String cartId) {
@@ -27,12 +27,19 @@ public class OrderService {
         return total_sum;
     }
 
-    public void createOrder(double total_sum, String session_Id) {
+    public String createOrder(double total_sum, String session_Id) {
         Order newOrder = new Order(total_sum, session_Id);
-        orderDao.save(newOrder);
+        return orderDao.create(newOrder);
     }
 
     public List<Order> findAllByAccountId(String account_id) {
         return orderDao.finalAllByAccountId(account_id);
+    }
+
+    public void createOrderItems(List<CartItems> sessionCart, String orderId) {
+        for(CartItems item : sessionCart) {
+            OrderItems orderItems = new OrderItems(item.getQuantity(), orderId, item.getProductId());
+            orderItemsDao.createOrderItems(orderItems);
+        }
     }
 }

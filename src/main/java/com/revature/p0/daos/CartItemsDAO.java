@@ -13,33 +13,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CartItemsDAO implements CrudDAO<CartItems> {
-
-    @Override
-    public void save(CartItems cartItems) {
-
-    }
-
-    @Override
-    public void update(String id) {
-
-    }
-
-    @Override
-    public void delete(String id) {
-
-    }
-
-    @Override
-    public CartItems findById(String id) {
-        return null;
-    }
-
-    @Override
-    public List<CartItems> findAll() {
-        return null;
-    }
-
+public class CartItemsDAO {
 
 
     public boolean createCartItems(CartItems cartItems) {

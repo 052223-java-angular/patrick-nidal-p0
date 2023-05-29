@@ -59,8 +59,7 @@ public class RouterService {
         return new CartItemService(new CartItemsDAO());
     }
     private CategoryService getCategoryService() {return new CategoryService(new CategoryDAO());}
-    private OrderService getOrderService() {return new OrderService(new OrderDAO(), new CartItemsDAO());}
+    private OrderService getOrderService() {return new OrderService(new OrderDAO(), new CartItemsDAO(), new OrderItemsDAO());}
     private ReviewService getReviewService() {return new ReviewService(new ReviewDAO());}
-
 
 }

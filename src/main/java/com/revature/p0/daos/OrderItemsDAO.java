@@ -1,30 +1,26 @@
 package com.revature.p0.daos;
 
-import com.revature.p0.models.Category;
-import com.revature.p0.models.Product;
 import com.revature.p0.utils.ConnectionFactory;
+import com.revature.p0.models.OrderItems;
 
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
-public class CategoryDAO {
+public class OrderItemsDAO {
 
-    public List<Category> getAllCategories() {
-        List<Category> categories = new ArrayList<>();
+    public void createOrderItems(OrderItems orderItems) {
         try(Connection conn = ConnectionFactory.getInstance().getConnection()) {
-            String sql = "SELECT * FROM category";
+            String sql = "INSERT INTO cart_items (id, quantity, order_id, product_id) VALUES (?, ?, ?, ?)";
 
             try(PreparedStatement ps = conn.prepareStatement(sql)) {
-                ResultSet rs = ps.executeQuery();
-                while (rs.next()) {
-                    Category category = new Category(rs.getString("id"), rs.getString("name") );
-                    categories.add(category);
-                }
+                ps.setString(1, orderItems.getId());
+                ps.setInt(2, orderItems.getQuantity());
+                ps.setString(3, orderItems.getOrderId());
+                ps.setString(4, orderItems.getProductId());
+
+                ps.executeUpdate();
             }
 
         } catch(SQLException e) {
@@ -34,7 +30,6 @@ public class CategoryDAO {
         } catch(ClassNotFoundException e) {
             throw new RuntimeException("Unable to load JDBC driver", e);
         }
-
-        return categories;
     }
+
 }

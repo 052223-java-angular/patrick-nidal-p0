@@ -57,9 +57,14 @@ public class CheckoutScreen {
                     case "y":
                         //process payment helper function
                         double balance = secureCheckout(total_sum, scan);
-                        orderService.createOrder(total_sum, session.getId());
 
-                        //remove on_hand items that were purchased from products table
+                        //create order and return orderId
+                        String orderId = orderService.createOrder(total_sum, session.getId());
+
+                        //store order items for order history
+                        orderService.createOrderItems(sessionCart, orderId);
+
+                        //remove on_hand items that were purchased from products table and account cart
                         removeFromOnHand(sessionCart, cartItemService, productService);
 
                         System.out.println("your balance is. " + balance);

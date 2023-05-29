@@ -10,31 +10,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ReviewDAO implements CrudDAO<Review> {
-    @Override
-    public void save(Review review) {
-
-    }
-
-    @Override
-    public void update(String id) {
-
-    }
-
-    @Override
-    public void delete(String id) {
-
-    }
-
-    @Override
-    public Review findById(String id) {
-        return null;
-    }
-
-    @Override
-    public List<Review> findAll() {
-        return null;
-    }
+public class ReviewDAO {
 
     //Add a review method
     public boolean addReview(Review review) {
