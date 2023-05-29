@@ -10,10 +10,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-public class CartDAO implements CrudDAO{
+public class CartDAO implements CrudDAO<Cart>{
 
     @Override
-    public void save(Object o) {
+    public void save(Cart cart) {
 
     }
 
@@ -28,7 +28,7 @@ public class CartDAO implements CrudDAO{
     }
 
     @Override
-    public Object findById(String id) {
+    public Cart findById(String id) {
         return null;
     }
 

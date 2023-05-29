@@ -18,10 +18,6 @@ public class OrderService {
         this.cartItemsDao = cartItemsDao;
     }
 
-    //query cart_items for all cart_item(id) to get total price for order using user session id
-    //return list of cart_items, each has a total price, iterate through the list and calculate total price
-    //for order
-
     public double returnTotal(String cartId) {
         List<CartItems> cartItemPrices = cartItemsDao.findAllByCartId(cartId);
         double total_sum = 0;
@@ -36,7 +32,7 @@ public class OrderService {
         orderDao.save(newOrder);
     }
 
-    public List<Order> finalAllByAccountId(String account_id) {
+    public List<Order> findAllByAccountId(String account_id) {
         return orderDao.finalAllByAccountId(account_id);
     }
 }

@@ -14,7 +14,7 @@ public class MainMenu implements IScreen {
     public void start(Scanner scan) {
         String input = "";
 
-        System.out.println("Welcome to the user menu.  You are logged in." + session.getUsername());
+        System.out.println("Welcome to the user menu: " + session.getUsername());
 
         exit: {
             while(true) {
@@ -22,8 +22,8 @@ public class MainMenu implements IScreen {
                 System.out.println("Welcome to MainMenu.");
                 System.out.println("\n[1] Products");
                 System.out.println("[2] Cart");
-                System.out.println("[3] Reviews");
-                System.out.println("[4] Orders");
+                System.out.println("[3] Orders");
+                System.out.println("[4] Reviews");
                 System.out.println("[x] Exit");
 
                 System.out.print("\nEnter:");
@@ -43,11 +43,8 @@ public class MainMenu implements IScreen {
                     case "4":
                         router.navigate("/review", scan);
                         break;
-                    case "PROTECTEDCHECKOUTxhashcodex" :
-                        router.navigate("/checkout", scan);
-                        break;
                     case "x":
-                        System.out.println("\nGoodbye!");
+                        System.out.println("\nThank you.  Come again.");
                         break exit;
                     default:
                         clearScreen();

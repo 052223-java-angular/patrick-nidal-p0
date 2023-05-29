@@ -10,7 +10,6 @@ public class HomeScreen implements IScreen {
 
     @Override
     public void start(Scanner scan) {
-        String input = "";
 
         exit: {
             while(true) {
@@ -22,7 +21,7 @@ public class HomeScreen implements IScreen {
 
                 System.out.print("\nEnter:");
 
-                input = scan.nextLine();
+                String input = scan.nextLine();
 
                 switch(input.toLowerCase()) {
                     case "1":
@@ -32,12 +31,12 @@ public class HomeScreen implements IScreen {
                         router.navigate("/register", scan);
                         break;
                     case "x":
-                        System.out.println("\nGoodbye!");
+                        System.out.println("\nThank you.  Come again.");
                         break exit;
                     default:
                         clearScreen();
                         System.out.println("Invalid option!");
-                        System.out.println("\nPress enter to continue...");
+                        System.out.print("Press ENTER to continue.");
                         scan.nextLine();
 
                 }

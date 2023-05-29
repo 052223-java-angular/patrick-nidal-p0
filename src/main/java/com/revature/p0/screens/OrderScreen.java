@@ -30,7 +30,7 @@ public class OrderScreen {
 
         //return list of order history from order table
 
-        List<Order> allOrders = orderService.finalAllByAccountId(session.getId());
+        List<Order> allOrders = orderService.findAllByAccountId(session.getId());
 
         //need to add associated products
         System.out.println("past orders");

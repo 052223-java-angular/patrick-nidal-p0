@@ -54,4 +54,21 @@ public class UserService {
         return cartDao.getCartId(accountId);
     }
 
+    //https://stackoverflow.com/questions/12018245/regular-expression-to-validate-username
+    public boolean validUsername(String username) {
+        return username.matches("^(?=.{4,20}$)(?:[a-zA-Z\\d]+(?:[._][a-zA-Z\\d])*)+$");
+    }
+
+    public boolean uniqueUsername(String username) {
+        return userDao.uniqueUsername(username).isEmpty();
+    }
+
+    public boolean validPassword(String password) {
+        return password.matches("^(?=.{4,20}$)(?:[a-zA-Z\\d]+(?:[._][a-zA-Z\\d])*)+$");
+    }
+
+    public boolean matchPasswordCheck(String password, String confirmPassword) {
+        return password.equals(confirmPassword);
+    }
+
 }

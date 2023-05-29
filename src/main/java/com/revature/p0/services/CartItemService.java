@@ -4,7 +4,6 @@ import com.revature.p0.daos.CartDAO;
 import com.revature.p0.daos.CartItemsDAO;
 import com.revature.p0.models.CartItems;
 import com.revature.p0.models.Product;
-
 import java.util.List;
 
 public class CartItemService {
@@ -22,6 +21,7 @@ public class CartItemService {
         return cartItemsDAO.findAllByCartId(cartId);
     }
 
+    //might change later
     public void cartQuantityRemoval(int quantityChoice, double price, String Id) {
         boolean success = false;
         while(!success) {

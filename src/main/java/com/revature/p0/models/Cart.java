@@ -1,9 +1,10 @@
 package com.revature.p0.models;
 
-
-import lombok.*;
-
 import java.util.UUID;
+import lombok.NoArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 
 @NoArgsConstructor
