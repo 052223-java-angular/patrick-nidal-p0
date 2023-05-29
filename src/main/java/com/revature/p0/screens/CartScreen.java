@@ -34,7 +34,7 @@ public class CartScreen implements IScreen {
         exit: {
             while (true) {
                 clearScreen();
-                System.out.println("Welcome to MainMenu.");
+                System.out.println("Welcome to the Cart.");
                 System.out.println("\n[1] Add Products");
                 System.out.println("[2] Remove Products");
                 System.out.println("[3] Proceed to checkout");
@@ -59,7 +59,7 @@ public class CartScreen implements IScreen {
                         break;
                     case "3":
                         System.out.println("Redirecting to menu for checkout");
-                        router.navigate("/menu", scan);
+                        router.navigate("/checkout", scan);
                         break exit;
                     default:
                         clearScreen();
