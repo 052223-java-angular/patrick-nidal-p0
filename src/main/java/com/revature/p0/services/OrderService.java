@@ -42,4 +42,8 @@ public class OrderService {
             orderItemsDao.createOrderItems(orderItems);
         }
     }
+
+    public List<OrderItems> findAllByOrderId(String orderId){
+        return orderItemsDao.findAllByOrderId(orderId);
+    }
 }
