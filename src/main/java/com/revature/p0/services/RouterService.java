@@ -34,7 +34,7 @@ public class RouterService {
             case "/order":
                 new OrderScreen(this, getOrderService(), session).start(scan);
             case "/review":
-                //to reviews
+                new ReviewScreen(this, getReviewService(), session).start(scan);
             default:
                 break;
         }
@@ -56,6 +56,7 @@ public class RouterService {
     private CategoryService getCategoryService() {return new CategoryService(new CategoryDAO());}
 
     private OrderService getOrderService() {return new OrderService(new OrderDAO());}
+    private ReviewService getReviewService() {return new ReviewService(new ReviewDAO());}
 
 
 }
