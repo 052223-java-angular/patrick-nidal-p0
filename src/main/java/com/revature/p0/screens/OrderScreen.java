@@ -32,6 +32,7 @@ public class OrderScreen {
 
         List<Order> allOrders = orderService.finalAllByAccountId(session.getId());
 
+        //need to add associated products
         System.out.println("past orders");
         int counter = 0;
         for(Order order : allOrders) {

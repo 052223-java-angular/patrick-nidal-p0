@@ -16,7 +16,6 @@ public class LoginScreen implements IScreen {
     private final UserService userService;
     private Session session;
 
-
     public void start(Scanner scan) {
         String username = "";
         String password = "";
@@ -28,13 +27,11 @@ public class LoginScreen implements IScreen {
                 System.out.println("Welcome to the login screen");
 
                 username = getUsername(scan);
-
                 if(username.equals("x")) {
                     break exit;
                 }
 
                 password = getPassword(scan);
-
                 if(password.equals("x")) {
                     break exit;
                 }

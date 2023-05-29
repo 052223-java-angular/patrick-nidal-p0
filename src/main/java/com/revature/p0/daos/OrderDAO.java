@@ -69,5 +69,4 @@ public class OrderDAO implements CrudDAO<Order> {
         return orders;
     }
 
-
 }

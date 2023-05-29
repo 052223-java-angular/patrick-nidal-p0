@@ -62,9 +62,6 @@ public class ProductDAO implements CrudDAO {
     }
 
 
-
-
-
     public List<Product> findProductByCategory(String category) {
         List<Product> products = new ArrayList<>();
         try(Connection conn = ConnectionFactory.getInstance().getConnection()) {
@@ -149,7 +146,5 @@ public class ProductDAO implements CrudDAO {
 
         return products;
     }
-
-
 
 }

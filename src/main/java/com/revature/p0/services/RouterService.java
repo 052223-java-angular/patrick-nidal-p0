@@ -49,7 +49,7 @@ public class RouterService {
     //helpers for navigations
 
     private UserService getUserService() {
-        return new UserService(new UserDAO());
+        return new UserService(new UserDAO(), new CartDAO());
     }
 
     private ProductService getProductService() {

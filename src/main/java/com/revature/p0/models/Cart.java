@@ -14,15 +14,9 @@ public class Cart {
     String id;
     String accountId;
 
-
-
     public Cart(String accountId) {
         this.id = UUID.randomUUID().toString();
         this.accountId = accountId;
     }
-
-
-
-
 
 }

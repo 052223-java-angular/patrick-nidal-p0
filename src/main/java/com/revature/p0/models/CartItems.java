@@ -32,9 +32,4 @@ public class CartItems {
         this.cartId = cartId;
     }
 
-
-
-
-
-
 }
