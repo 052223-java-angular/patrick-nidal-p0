@@ -26,7 +26,7 @@ public class RouterService {
                 new MainMenu(this, session).start(scan);
                 break;
             case "/product":
-                new ProductScreen(this, getProductService(), session, getCartService(), getCategoryService()).start(scan);
+                new ProductScreen(getProductService(), session, getCartService(), getCategoryService()).start(scan);
                 break;
             case "/cart":
                 new CartScreen(this, getCartService(), session).start(scan);
@@ -46,10 +46,10 @@ public class RouterService {
     }
 
 
-    //helpers for navigations
+    //----helpers for navigation----
 
     private UserService getUserService() {
-        return new UserService(new UserDAO());
+        return new UserService(new UserDAO(), new CartDAO());
     }
 
     private ProductService getProductService() {

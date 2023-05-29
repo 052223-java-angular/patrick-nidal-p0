@@ -101,44 +101,19 @@ public class UserDAO implements CrudDAO<User> {
         return creationSuccess;
     }
 
-    public boolean createCart(Cart cart) {
-        boolean isCreated = false;
+    public Optional<User> uniqueUsername(String username) {
         try(Connection conn = ConnectionFactory.getInstance().getConnection()) {
-            String sql = "INSERT INTO cart (id, account_id) VALUES (?, ?)";
-
+            String sql = "SELECT * FROM accounts WHERE username = ?";
             try(PreparedStatement ps = conn.prepareStatement(sql)) {
-                ps.setString(1, cart.getId());
-                ps.setString(2, cart.getAccountId());
-
-                isCreated = ps.executeUpdate() == 1;
-            }
-
-        } catch(SQLException e) {
-            throw new RuntimeException("Unable to connect to db", e);
-        } catch(IOException e) {
-            throw new RuntimeException("Cannot find application.properties", e);
-        } catch(ClassNotFoundException e) {
-            throw new RuntimeException("Unable to load JDBC driver", e);
-        }
-        return isCreated;
-    }
-
-    public String getCartId(String accountId) {
-
-        try(Connection conn = ConnectionFactory.getInstance().getConnection()) {
-            String sql = "SELECT * FROM cart WHERE account_id = ?";
-
-            try(PreparedStatement ps = conn.prepareStatement(sql)) {
-                ps.setString(1, accountId);
-
-                ResultSet rs = ps.executeQuery();
-
-                if (rs.next()) {
-                    return rs.getString("id");
-
+                ps.setString(1, username);
+                try(ResultSet rs = ps.executeQuery()) {
+                    if(rs.next()) {
+                        User user = new User();
+                        user.setUsername(rs.getString("username"));
+                        return Optional.of(user);
+                    }
                 }
             }
-
         } catch(SQLException e) {
             throw new RuntimeException("Unable to connect to db", e);
         } catch(IOException e) {
@@ -146,6 +121,7 @@ public class UserDAO implements CrudDAO<User> {
         } catch(ClassNotFoundException e) {
             throw new RuntimeException("Unable to load JDBC driver", e);
         }
-        return null;
+        return Optional.empty();
     }
+
 }

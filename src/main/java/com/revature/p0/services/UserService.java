@@ -1,5 +1,6 @@
 package com.revature.p0.services;
 
+import com.revature.p0.daos.CartDAO;
 import com.revature.p0.models.Cart;
 import com.revature.p0.models.User;
 import com.revature.p0.daos.UserDAO;
@@ -9,9 +10,11 @@ import java.util.Optional;
 public class UserService {
 
     private final UserDAO userDao;
+    private final CartDAO cartDao;
 
-    public UserService(UserDAO userDao) {
+    public UserService(UserDAO userDao, CartDAO cartDao) {
         this.userDao = userDao;
+        this.cartDao = cartDao;
     }
 
     public User register(String username, String password) {
@@ -39,18 +42,33 @@ public class UserService {
     }
 
     public String createCart(String account_id) {
-
         Cart cart = new Cart(account_id);
         boolean isExist = false;
-
         while(!isExist) {
-            isExist = userDao.createCart(cart);
+            isExist = cartDao.createCart(cart);
         }
         return cart.getId();
     }
 
     public String getCartId(String accountId) {
-        return userDao.getCartId(accountId);
+        return cartDao.getCartId(accountId);
+    }
+
+    //https://stackoverflow.com/questions/12018245/regular-expression-to-validate-username
+    public boolean validUsername(String username) {
+        return username.matches("^(?=.{4,20}$)(?:[a-zA-Z\\d]+(?:[._][a-zA-Z\\d])*)+$");
+    }
+
+    public boolean uniqueUsername(String username) {
+        return userDao.uniqueUsername(username).isEmpty();
+    }
+
+    public boolean validPassword(String password) {
+        return password.matches("^(?=.{4,20}$)(?:[a-zA-Z\\d]+(?:[._][a-zA-Z\\d])*)+$");
+    }
+
+    public boolean matchPasswordCheck(String password, String confirmPassword) {
+        return password.equals(confirmPassword);
     }
 
 }

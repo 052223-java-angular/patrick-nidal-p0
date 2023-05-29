@@ -1,13 +1,10 @@
 package com.revature.p0.screens;
 
-import com.revature.p0.models.Cart;
 import com.revature.p0.services.RouterService;
 import com.revature.p0.services.UserService;
 import com.revature.p0.models.User;
 import com.revature.p0.models.Session;
 import lombok.AllArgsConstructor;
-
-import java.sql.Struct;
 import java.util.Scanner;
 
 @AllArgsConstructor
@@ -23,7 +20,7 @@ public class RegisterScreen {
         exit: {
             while(true) {
                 clearScreen();
-                System.out.println("Welcome to the register screen!");
+                System.out.println("Welcome to the register screen.");
 
                 username = getUsername(scan);
                 if(username.equals("x")) {
@@ -44,11 +41,10 @@ public class RegisterScreen {
                 switch(scan.nextLine()) {
                     case "y":
                         User createdUser = userService.register(username, password);
+
+                        //set session ids and bypass log in screen if successful registration
                         session.setSession(createdUser);
-
                         session.setCartId(userService.createCart(createdUser.getId()));
-
-                        //bypass log in screen if successful registration
                         router.navigate("/menu", scan);
                         break exit;
                     case "n":
@@ -65,11 +61,8 @@ public class RegisterScreen {
                         break;
                 }
 
-                break exit;
-
             }
         }
-
     }
 
     public String getUsername(Scanner scan) {
@@ -81,6 +74,21 @@ public class RegisterScreen {
 
             if(username.equalsIgnoreCase("x")) {
                 return "x";
+            }
+
+            //check usernames for validity and uniqueness
+            if(!userService.validUsername(username)) {
+                System.out.println("\nUsername needs to be between 4-20 characters.");
+                System.out.print("Press ENTER to try another username.");
+                scan.nextLine();
+                continue;
+            }
+
+            if(!userService.uniqueUsername(username)) {
+                System.out.println("\nUsername is not unique.");
+                System.out.print("Press ENTER to try another username.");
+                scan.nextLine();
+                continue;
             }
 
             break;
@@ -97,6 +105,26 @@ public class RegisterScreen {
         while(true) {
             System.out.print("\nEnter a password (x to cancel): ");
             password = scan.nextLine();
+
+            //check passwords for validity and ask for confirmation
+            if(!userService.validPassword(password)) {
+                System.out.println("Username needs to be between 4-20 characters.");
+                System.out.print("Press ENTER to try another username.");
+                scan.nextLine();
+                continue;
+            }
+
+            System.out.println("Please confirm password (x to cancel): ");
+            confirmPassword = scan.nextLine();
+            if(confirmPassword.equalsIgnoreCase("x")) {
+                return "x";
+            }
+            if(!userService.matchPasswordCheck(password, confirmPassword)) {
+                System.out.println("Chosen passwords do not match");
+                System.out.print("Press ENTER to try another username.");
+                scan.nextLine();
+                continue;
+            }
 
             break;
         }
