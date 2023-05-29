@@ -13,33 +13,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CartItemsDAO implements CrudDAO<CartItems> {
-
-    @Override
-    public void save(CartItems cartItems) {
-
-    }
-
-    @Override
-    public void update(String id) {
-
-    }
-
-    @Override
-    public void delete(String id) {
-
-    }
-
-    @Override
-    public CartItems findById(String id) {
-        return null;
-    }
-
-    @Override
-    public List<CartItems> findAll() {
-        return null;
-    }
-
+public class CartItemsDAO {
 
 
     public boolean createCartItems(CartItems cartItems) {
@@ -77,7 +51,7 @@ public class CartItemsDAO implements CrudDAO<CartItems> {
                 ResultSet rs = ps.executeQuery();
                 while (rs.next()) {
                     CartItems cart = new CartItems(rs.getInt("quantity") , rs.getDouble("price"),
-                            rs.getString("product_id"), rs.getString("getCartId"));
+                            rs.getString("product_id"), rs.getString("cart_id"));
                     cartItems.add(cart);
                 }
             }
@@ -114,5 +88,23 @@ public class CartItemsDAO implements CrudDAO<CartItems> {
             throw new RuntimeException("Unable to load JDBC driver", e);
         }
         return removalSuccess;
+    }
+
+    public void updateByQuantity(int toRemove, String productId) {
+        try(Connection conn = ConnectionFactory.getInstance().getConnection()) {
+            String sql = "UPDATE products SET on_hand = on_hand - toRemove WHERE = ?";
+
+            try(PreparedStatement ps = conn.prepareStatement(sql)) {
+                ps.setString(1, productId);
+                ps.executeUpdate();
+            }
+
+        } catch(SQLException e) {
+            throw new RuntimeException("Unable to connect to db", e);
+        } catch(IOException e) {
+            throw new RuntimeException("Cannot find application.properties", e);
+        } catch(ClassNotFoundException e) {
+            throw new RuntimeException("Unable to load JDBC driver", e);
+        }
     }
 }

@@ -17,6 +17,7 @@ public class CartScreen implements IScreen {
     private final RouterService router;
     private final CartItemService cartService;
     private Session session;
+    private final ProductService productService;
 
     @Override
     public void start(Scanner scan) {
@@ -46,7 +47,7 @@ public class CartScreen implements IScreen {
                         router.navigate("/product", scan);
                         break exit;
                     case "2":
-                        System.out.println("which products to remove");
+                        System.out.println("Select products to remove.");
                         List<CartItems> sessionCart2 = cartService.getAllCartItems(session.getCartId());
                         int counter = 1;
                         for(CartItems items : sessionCart2) {
@@ -57,6 +58,11 @@ public class CartScreen implements IScreen {
                         showRemainingInCart(scan, choice.getQuantity(), choice.getPrice(), choice.getId());
                         break;
                     case "3":
+                        //helper method to check if items in cart less than on_hand
+                        if(!isValidCheckout(productService, sessionCart)) {
+                            System.out.println("Invalid checkout.  Please remove items from cart.");
+                            break exit;
+                        }
                         System.out.println("Redirecting to menu for checkout");
                         router.navigate("/checkout", scan);
                         break exit;
@@ -99,6 +105,10 @@ public class CartScreen implements IScreen {
             System.out.println("Invalid Amount");
         }
 
+    }
+
+    private boolean isValidCheckout(ProductService productService, List<CartItems> sessionCart) {
+        return productService.isValidCheckout(sessionCart);
     }
 
     public void clearScreen() {

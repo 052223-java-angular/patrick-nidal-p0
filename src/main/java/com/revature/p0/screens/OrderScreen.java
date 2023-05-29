@@ -23,14 +23,24 @@ public class OrderScreen {
 
         System.out.println("Orders unprocessed and history.");
 
+
+        //should show cart items linking to product
         double total_sum = orderService.returnTotal(session.getCartId());
         System.out.println("current unprocessed order: " + total_sum);
 
         System.out.println("Order history");
 
-        //return list of order history from order table
-
+        //return list of order history from order table?
         List<Order> allOrders = orderService.findAllByAccountId(session.getId());
+        //use for each loop
+
+        List<OrderItems> ordersToId = orderService.findAllByOrderId();
+
+        //print product name
+
+        //use session id to get orders and match with order items
+        //get all orders matching to account/session id
+        //then match order items to those orders
 
         //need to add associated products
         System.out.println("past orders");

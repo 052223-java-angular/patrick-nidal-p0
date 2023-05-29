@@ -9,11 +9,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OrderDAO implements CrudDAO<Order> {
+public class OrderDAO {
 
 
-    @Override
-    public void save(Order order) {
+    public String create(Order order) {
+        String orderId = order.getId();
         try(Connection conn = ConnectionFactory.getInstance().getConnection()) {
             String sql = "INSERT INTO orders (id, total_cost, account_id) VALUES (?, ?, ?)";
 
@@ -31,25 +31,9 @@ public class OrderDAO implements CrudDAO<Order> {
         } catch(ClassNotFoundException e) {
             throw new RuntimeException("Unable to load JDBC driver", e);
         }
+        return orderId;
 
     }
-
-    @Override
-    public void update(String id) {
-
-    }
-
-    @Override
-    public void delete(String id) {
-
-    }
-
-    @Override
-    public Order findById(String id) { return null; }
-
-
-    @Override
-    public List<Order> findAll() { return null; }
 
     public List<Order> finalAllByAccountId(String account_id) {
         List<Order> orders = new ArrayList<>();
