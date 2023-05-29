@@ -17,7 +17,21 @@ public class Review {
     private String id;
     private int stars;
     private String comment;
-    private String account_id;
-    private String product_id;
+    private String accountId;
+    private String productId;
+
+    public Review(int stars, String comment, String accountId, String productId) {
+        this.id = UUID.randomUUID().toString();
+        this.stars = stars;
+        this.comment = comment;
+        this.accountId = accountId;
+        this.productId = productId;
+    }
+
+    public Review(int stars, String comment, String productId) {
+        this.stars = stars;
+        this.comment = comment;
+        this.productId = productId;
+    }
 
 }

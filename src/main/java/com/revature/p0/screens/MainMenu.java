@@ -22,7 +22,7 @@ public class MainMenu implements IScreen {
                 System.out.println("Welcome to MainMenu.");
                 System.out.println("\n[1] Products");
                 System.out.println("[2] Cart");
-                System.out.println("[3] Review");
+                System.out.println("[3] Reviews");
                 System.out.println("[4] Orders");
                 System.out.println("[x] Exit");
 
@@ -35,10 +35,10 @@ public class MainMenu implements IScreen {
                         router.navigate("/product", scan);
                         break;
                     case "2":
-                        router.navigate("/order", scan);
+                        router.navigate("/cart", scan);
                         break;
                     case "3":
-                        router.navigate("/cart", scan);
+                        router.navigate("/order", scan);
                         break;
                     case "4":
                         router.navigate("/review", scan);
