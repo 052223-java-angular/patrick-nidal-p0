@@ -14,12 +14,10 @@ public class MainMenu implements IScreen {
     public void start(Scanner scan) {
         String input = "";
 
-        System.out.println("Welcome to the user menu: " + session.getUsername());
-
         exit: {
             while(true) {
                 clearScreen();
-                System.out.println("Welcome to MainMenu.");
+                System.out.println("Welcome to main menu: "+ session.getUsername());
                 System.out.println("\n[1] Products");
                 System.out.println("[2] Cart");
                 System.out.println("[3] Orders");
@@ -44,12 +42,12 @@ public class MainMenu implements IScreen {
                         router.navigate("/review", scan);
                         break;
                     case "x":
-                        System.out.println("\nThank you.  Come again.");
+                        System.out.println("\nSigning out.");
                         break exit;
                     default:
                         clearScreen();
                         System.out.println("Invalid option!");
-                        System.out.println("\nPress enter to continue...");
+                        System.out.println("\nPress ENTER to continue..");
                         scan.nextLine();
                 }
             }
