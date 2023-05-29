@@ -72,7 +72,6 @@ public class CartDAO implements CrudDAO<Cart>{
 
                 if (rs.next()) {
                     return rs.getString("id");
-
                 }
             }
 

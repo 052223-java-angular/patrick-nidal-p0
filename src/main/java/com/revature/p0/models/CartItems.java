@@ -27,10 +27,4 @@ public class CartItems {
         this.cartId = cartId;
     }
 
-    public CartItems(int quantity, double price, String productId) {
-        this.quantity = quantity;
-        this.price = price;
-        this.productId = productId;
-    }
-
 }

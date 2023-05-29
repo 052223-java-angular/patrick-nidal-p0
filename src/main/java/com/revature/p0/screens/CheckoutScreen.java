@@ -29,6 +29,8 @@ public class CheckoutScreen {
 
         System.out.println("Welcome to payment processing.");
 
+        //needs to be a check for product amount on hand
+
         System.out.println("Confirm cart items: ");
 
         List<CartItems> sessionCart = cartItemService.getAllCartItems(session.getCartId());

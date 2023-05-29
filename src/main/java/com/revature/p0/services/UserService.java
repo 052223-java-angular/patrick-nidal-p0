@@ -50,6 +50,10 @@ public class UserService {
         return cart.getId();
     }
 
+    public String getAccountId(String username) {
+        return cartDao.getCartId(username);
+    }
+
     public String getCartId(String accountId) {
         return cartDao.getCartId(accountId);
     }
