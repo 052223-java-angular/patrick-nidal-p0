@@ -41,7 +41,7 @@ public class LoginScreen implements IScreen {
 
                 //set session ids and proceed to menu
                 session.setSession(isValidUser);
-                session.setCartId(userService.getCartId(session.getId()));
+                session.setCartId(userService.getCartId(userService.getAccountId(isValidUser.getUsername())));
                 router.navigate("/menu", scan);
 
                 break exit;

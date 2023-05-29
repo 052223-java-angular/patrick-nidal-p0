@@ -48,7 +48,7 @@ public class CartItemsDAO implements CrudDAO<CartItems> {
             String sql = "INSERT INTO cart_items (id, quantity, price, product_id, cart_id) VALUES (?, ?, ?, ?, ?)";
 
             try(PreparedStatement ps = conn.prepareStatement(sql)) {
-                ps.setString(1, cartItems.getCartId());
+                ps.setString(1, cartItems.getId());
                 ps.setInt(2, cartItems.getQuantity());
                 ps.setDouble(3, cartItems.getPrice());
                 ps.setString(4, cartItems.getProductId());
@@ -77,7 +77,7 @@ public class CartItemsDAO implements CrudDAO<CartItems> {
                 ResultSet rs = ps.executeQuery();
                 while (rs.next()) {
                     CartItems cart = new CartItems(rs.getInt("quantity") , rs.getDouble("price"),
-                            rs.getString("product_id"));
+                            rs.getString("product_id"), rs.getString("getCartId"));
                     cartItems.add(cart);
                 }
             }

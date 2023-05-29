@@ -13,6 +13,7 @@ import java.util.Scanner;
 @AllArgsConstructor
 public class ProductScreen implements IScreen{
 
+    private final RouterService router;
     private final ProductService productService;
     private Session session;
     private final CartItemService cartItemService;
@@ -36,14 +37,15 @@ public class ProductScreen implements IScreen{
 
                 switch (scan.nextLine()) {
                     case "1":
-                        List<Product> list = getAllProducts(productService, scan);
+                        List<Product> list = getAllProducts(productService);
                         Product choice =  selectOption(scan, list);
                         System.out.println("Left in Stock " + choice.getOnHand());
                         int quantity = determineQuantity(scan, choice.getOnHand());
                         addSelectedItemToCart(choice, session.getCartId(), quantity);
 
                         System.out.println("Item added to cart successfully!");
-                        break;
+                        optionForMainMenu(router, scan);
+                        break exit;
                     case "2":
                         List<Product> nameList = getProductByName(productService, scan);
                         Product choice2 =  selectOption(scan, nameList);
@@ -52,11 +54,11 @@ public class ProductScreen implements IScreen{
                         addSelectedItemToCart(choice2, session.getCartId(), quantity2);
 
                         System.out.println("Item added to cart successfully!");
-                        break;
+                        optionForMainMenu(router, scan);
+                        break exit;
                     case "3":
                         provideCategories(categoryService);
                         System.out.println("Select a Category: ");
-                        scan.nextLine();
                         String category = scan.nextLine();
                         int counter5 = 1;
                         List<Product> categoryProducts = productService.getProductByCategory(category);
@@ -70,7 +72,8 @@ public class ProductScreen implements IScreen{
                         addSelectedItemToCart(productCategoryChoice, session.getCartId(), quantity4);
 
                         System.out.println("Item added to cart successfully!");
-                        break;
+                        optionForMainMenu(router, scan);
+                        break exit;
                     case "4":
                         System.out.println("Product in price range: ");
                         System.out.println("Enter the low price: ");
@@ -78,7 +81,7 @@ public class ProductScreen implements IScreen{
                         System.out.println("Enter the high price: ");
                         double high = scan.nextDouble();
 
-                        List<Product> priceRangeList = getProductByPriceRange(productService, scan, low, high);
+                        List<Product> priceRangeList = getProductByPriceRange(productService, low, high);
 
                         Product choice4 =  selectOption(scan, priceRangeList);
                         System.out.println("Left in Stock " + choice4.getOnHand());
@@ -86,7 +89,8 @@ public class ProductScreen implements IScreen{
                         addSelectedItemToCart(choice4, session.getCartId(), quantity6);
 
                         System.out.println("Item added to cart successfully!");
-                        break;
+                        optionForMainMenu(router, scan);
+                        break exit;
                     case "x":
                         break exit;
                     default:
@@ -95,14 +99,13 @@ public class ProductScreen implements IScreen{
                         scan.nextLine();
                 }
 
-                break;
             }
 
     }
 
 
     //----Helper Methods----
-    private List<Product> getAllProducts(ProductService productService, Scanner scan){
+    private List<Product> getAllProducts(ProductService productService){
 
         System.out.println("Available products: ");
         int counter = 1;
@@ -117,7 +120,6 @@ public class ProductScreen implements IScreen{
 
     private List<Product> getProductByName(ProductService productService, Scanner scan) {
         System.out.println("Enter Product name : ");
-        scan.nextLine();
         String productName = scan.nextLine();
         int counter2 = 1;
         List<Product> list2 = productService.getProductByName(productName);
@@ -138,7 +140,7 @@ public class ProductScreen implements IScreen{
         }
     }
 
-    private List<Product> getProductByPriceRange(ProductService productService, Scanner scan, double low, double high) {
+    private List<Product> getProductByPriceRange(ProductService productService, double low, double high) {
         int counter4 = 1;
         List<Product> list4 = productService.getProductByPriceRange(low, high);
         for(Product product : list4) {
@@ -153,6 +155,7 @@ public class ProductScreen implements IScreen{
 
         System.out.println("select a product: ");
         int userChoice = scan.nextInt();
+        scan.nextLine();
         Product productChoice = list.get(userChoice - 1);
         System.out.println(productChoice.getId());
 
@@ -167,6 +170,7 @@ public class ProductScreen implements IScreen{
             System.out.println("Enter Quantity: ");
             int amount = scan.nextInt();
             if (amount <= onHand && amount >= 0) {
+                System.out.println("You've selected " + amount);
                 return amount;
             }
             System.out.println("Invalid Amount");
@@ -177,6 +181,18 @@ public class ProductScreen implements IScreen{
         CartItems cartItems = new CartItems(quantity, quantity * product.getPrice(),
                 product.getId(), cartId);
         cartItemService.insertItems(cartItems);
+    }
+
+    private void optionForMainMenu(RouterService router, Scanner scan) {
+        System.out.println("[1] Back to main menu");
+        scan.nextLine();
+
+        switch(scan.nextLine()) {
+            case "1":
+                router.navigate("/main", scan);
+            default:
+                break;
+        }
     }
 
 

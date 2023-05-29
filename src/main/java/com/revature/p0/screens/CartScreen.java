@@ -20,7 +20,7 @@ public class CartScreen implements IScreen {
 
     @Override
     public void start(Scanner scan) {
-        System.out.println("Your Cart Items ");
+        System.out.println("\nYour Cart Items ");
 
         List<CartItems> sessionCart = cartService.getAllCartItems(session.getCartId());
         for(CartItems items : sessionCart) {
@@ -47,7 +47,6 @@ public class CartScreen implements IScreen {
                         break exit;
                     case "2":
                         System.out.println("which products to remove");
-                        //print cart, select product, remove quantity
                         List<CartItems> sessionCart2 = cartService.getAllCartItems(session.getCartId());
                         int counter = 1;
                         for(CartItems items : sessionCart2) {
