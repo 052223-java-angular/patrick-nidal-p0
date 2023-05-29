@@ -33,8 +33,13 @@ public class RouterService {
                 break;
             case "/order":
                 new OrderScreen(this, getOrderService(), session).start(scan);
+                break;
             case "/review":
                 new ReviewScreen(this, getReviewService(), session).start(scan);
+                break;
+            case "/checkout":
+                new CheckoutScreen(this, getOrderService(), session, getCartService()).start(scan);
+                break;
             default:
                 break;
         }
@@ -54,8 +59,7 @@ public class RouterService {
         return new CartItemService(new CartItemsDAO());
     }
     private CategoryService getCategoryService() {return new CategoryService(new CategoryDAO());}
-
-    private OrderService getOrderService() {return new OrderService(new OrderDAO());}
+    private OrderService getOrderService() {return new OrderService(new OrderDAO(), new CartItemsDAO());}
     private ReviewService getReviewService() {return new ReviewService(new ReviewDAO());}
 
 

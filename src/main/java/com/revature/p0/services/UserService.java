@@ -43,7 +43,6 @@ public class UserService {
         Cart cart = new Cart(account_id);
         boolean isExist = false;
 
-
         while(!isExist) {
             isExist = userDao.createCart(cart);
         }
@@ -52,7 +51,6 @@ public class UserService {
 
     public String getCartId(String accountId) {
         return userDao.getCartId(accountId);
-
     }
 
 }

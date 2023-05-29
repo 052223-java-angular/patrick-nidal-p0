@@ -32,7 +32,6 @@ public class MainMenu implements IScreen {
 
                 switch(input.toLowerCase()) {
                     case "1":
-                        System.out.println("is this line being hit");
                         router.navigate("/product", scan);
                         break;
                     case "2":
@@ -43,6 +42,9 @@ public class MainMenu implements IScreen {
                         break;
                     case "4":
                         router.navigate("/review", scan);
+                        break;
+                    case "PROTECTEDCHECKOUTxhashcodex" :
+                        router.navigate("/checkout", scan);
                         break;
                     case "x":
                         System.out.println("\nGoodbye!");
