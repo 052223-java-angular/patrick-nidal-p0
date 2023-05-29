@@ -71,7 +71,7 @@ public class CartItemsDAO {
     public boolean cartQuantityRemoval(int quantityChoice, double price, String cartId) {
         boolean removalSuccess = false;
         try(Connection conn = ConnectionFactory.getInstance().getConnection()) {
-            String sql = "UPDATE cart_items SET quantity = ? AND price = ? WHERE id = ?";
+            String sql = "UPDATE cart_items SET quantity = ?, price = ? WHERE id = ?";
 
             try(PreparedStatement ps = conn.prepareStatement(sql)) {
                 ps.setInt(1, quantityChoice);
@@ -107,4 +107,5 @@ public class CartItemsDAO {
             throw new RuntimeException("Unable to load JDBC driver", e);
         }
     }
+
 }

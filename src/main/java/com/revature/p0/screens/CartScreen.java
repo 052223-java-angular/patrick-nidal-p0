@@ -56,6 +56,7 @@ public class CartScreen implements IScreen {
                         }
                         CartItems choice = selectOption(scan, sessionCart2);
                         showRemainingInCart(scan, choice.getQuantity(), choice.getPrice(), choice.getId());
+                        scan.nextLine();
                         break;
                     case "3":
                         //helper method to check if items in cart less than on_hand
@@ -97,7 +98,7 @@ public class CartScreen implements IScreen {
             int quantityRemove = scan.nextInt();
             if (quantityRemove <= quantity && quantityRemove >= 0) {
                 int quantityChoice = quantity-quantityRemove;
-                double newPrice = price-((price/quantity)*quantityChoice);
+                double newPrice = (price/quantity)*quantityChoice;
                 cartService.cartQuantityRemoval(quantityChoice, newPrice, id);
                 System.out.println("Removal success.  New quantity is " + quantityChoice + " and price is: " + newPrice);
                 return quantityChoice;

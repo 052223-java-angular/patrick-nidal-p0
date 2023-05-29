@@ -4,6 +4,7 @@ import com.revature.p0.models.Order;
 import com.revature.p0.services.OrderService;
 import com.revature.p0.services.RouterService;
 import com.revature.p0.models.Session;
+import com.revature.p0.models.OrderItems;
 
 import java.util.List;
 import java.util.Scanner;
@@ -21,35 +22,25 @@ public class OrderScreen {
 
     public void start(Scanner scan) {
 
-        System.out.println("Orders unprocessed and history.");
-
-
-        //should show cart items linking to product
+        System.out.println("Unprocessed order");
         double total_sum = orderService.returnTotal(session.getCartId());
-        System.out.println("current unprocessed order: " + total_sum);
+        System.out.println("Total of the above order is: " + total_sum);
 
-        System.out.println("Order history");
+        System.out.println("Orders history.");
 
-        //return list of order history from order table?
         List<Order> allOrders = orderService.findAllByAccountId(session.getId());
-        //use for each loop
 
-        List<OrderItems> ordersToId = orderService.findAllByOrderId();
+        int counter = 1;
 
-        //print product name
+        for(Order oneOrder : allOrders) {
+            List<OrderItems> orderItems = orderService.findAllByOrderId(oneOrder.getId());
+            for(OrderItems items : orderItems) {
+                System.out.println(counter + ". Items for this order include: " + items.getQuantity() + "x " + items.getProductId());
 
-        //use session id to get orders and match with order items
-        //get all orders matching to account/session id
-        //then match order items to those orders
-
-        //need to add associated products
-        System.out.println("past orders");
-        int counter = 0;
-        for(Order order : allOrders) {
-            System.out.println("order number: " + counter + " : " + order.getTotal_cost());
+            }
+            System.out.println("total cost of order:" + oneOrder.getTotal_cost());
             counter++;
         }
-
 
     }
 
