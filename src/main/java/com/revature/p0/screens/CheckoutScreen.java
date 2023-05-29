@@ -6,6 +6,7 @@ import com.revature.p0.models.Session;
 import com.revature.p0.models.User;
 import com.revature.p0.services.CartItemService;
 import com.revature.p0.services.OrderService;
+import com.revature.p0.services.ProductService;
 import com.revature.p0.services.RouterService;
 
 import java.util.List;
@@ -17,19 +18,19 @@ public class CheckoutScreen {
     private final OrderService orderService;
     private Session session;
     private final CartItemService cartItemService;
+    private final ProductService productService;
 
-    public CheckoutScreen(RouterService router, OrderService orderService, Session session, CartItemService cartItemService) {
+    public CheckoutScreen(RouterService router, OrderService orderService, Session session, CartItemService cartItemService, ProductService productService) {
         this.router = router;
         this.orderService = orderService;
         this.session = session;
         this.cartItemService = cartItemService;
+        this.productService = productService;
     }
 
     public void start(Scanner scan) {
 
         System.out.println("Welcome to payment processing.");
-
-        //needs to be a check for product amount on hand
 
         System.out.println("Confirm cart items: ");
 
@@ -56,8 +57,10 @@ public class CheckoutScreen {
                     case "y":
                         //process payment helper function
                         double balance = secureCheckout(total_sum, scan);
-
                         orderService.createOrder(total_sum, session.getId());
+
+                        //remove on_hand items that were purchased from products table
+                        removeFromOnHand(sessionCart, cartItemService, productService);
 
                         System.out.println("your balance is. " + balance);
 
@@ -87,6 +90,11 @@ public class CheckoutScreen {
                 return userAmount-sum;
             }
         }
+    }
+
+    public void removeFromOnHand(List<CartItems> sessionCart, CartItemService cartItemService, ProductService productService) {
+        productService.removeItemsFromOnHand(sessionCart);
+        cartItemService.removeItemsFromCart(sessionCart);
     }
 
     private void clearScreen() {

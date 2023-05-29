@@ -29,7 +29,7 @@ public class RouterService {
                 new ProductScreen(this, getProductService(), session, getCartService(), getCategoryService()).start(scan);
                 break;
             case "/cart":
-                new CartScreen(this, getCartService(), session).start(scan);
+                new CartScreen(this, getCartService(), session, getProductService()).start(scan);
                 break;
             case "/order":
                 new OrderScreen(this, getOrderService(), session).start(scan);
@@ -38,7 +38,7 @@ public class RouterService {
                 new ReviewScreen(this, getReviewService(), session).start(scan);
                 break;
             case "/checkout":
-                new CheckoutScreen(this, getOrderService(), session, getCartService()).start(scan);
+                new CheckoutScreen(this, getOrderService(), session, getCartService(), getProductService()).start(scan);
                 break;
             default:
                 break;

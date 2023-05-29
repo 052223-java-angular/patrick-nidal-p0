@@ -1,6 +1,7 @@
 package com.revature.p0.services;
 
 import com.revature.p0.daos.ProductDAO;
+import com.revature.p0.models.CartItems;
 import com.revature.p0.models.Product;
 import java.util.List;
 
@@ -26,6 +27,22 @@ public class ProductService {
 
     public List<Product> getProductByPriceRange(double priceLower, double priceUpper) {
         return productDao.findProductByPriceRange(priceLower, priceUpper);
+    }
+
+    //for checkout - product onhand check
+    public boolean isValidCheckout(List<CartItems> sessionCart) {
+        for(CartItems item : sessionCart) {
+            if(item.getQuantity() > productDao.checkOnHand(item.getProductId())) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public void removeItemsFromOnHand(List<CartItems> sessionCart) {
+        for(CartItems item : sessionCart) {
+            productDao.updateByQuantity(item.getQuantity(), item.getProductId());
+        }
     }
 
 

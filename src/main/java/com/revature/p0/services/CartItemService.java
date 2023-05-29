@@ -29,4 +29,10 @@ public class CartItemService {
         }
     }
 
+    public void removeItemsFromCart(List<CartItems> sessionCart) {
+        for(CartItems item : sessionCart) {
+            cartItemsDAO.updateByQuantity(item.getQuantity(), item.getProductId());
+        }
+    }
+
 }

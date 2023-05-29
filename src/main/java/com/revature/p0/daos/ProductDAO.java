@@ -147,4 +147,47 @@ public class ProductDAO implements CrudDAO<Product> {
         return products;
     }
 
+    public int checkOnHand(String productId) {
+        int onHand = 0;
+        try(Connection conn = ConnectionFactory.getInstance().getConnection()) {
+            String sql = "SELECT * FROM products WHERE id = ?";
+
+            try(PreparedStatement ps = conn.prepareStatement(sql)) {
+                ps.setString(1, productId);
+
+                ResultSet rs = ps.executeQuery();
+                if (rs.next()) {
+                    onHand = rs.getInt("on_hand");
+                }
+            }
+
+        } catch(SQLException e) {
+            throw new RuntimeException("Unable to connect to db", e);
+        } catch(IOException e) {
+            throw new RuntimeException("Cannot find application.properties", e);
+        } catch(ClassNotFoundException e) {
+            throw new RuntimeException("Unable to load JDBC driver", e);
+        }
+
+        return onHand;
+    }
+
+    public void updateByQuantity(int toRemove, String productId) {
+        try(Connection conn = ConnectionFactory.getInstance().getConnection()) {
+            String sql = "UPDATE products SET on_hand = on_hand - toRemove WHERE = ?";
+
+            try(PreparedStatement ps = conn.prepareStatement(sql)) {
+                ps.setString(1, productId);
+                ps.executeUpdate();
+            }
+
+        } catch(SQLException e) {
+            throw new RuntimeException("Unable to connect to db", e);
+        } catch(IOException e) {
+            throw new RuntimeException("Cannot find application.properties", e);
+        } catch(ClassNotFoundException e) {
+            throw new RuntimeException("Unable to load JDBC driver", e);
+        }
+    }
+
 }
