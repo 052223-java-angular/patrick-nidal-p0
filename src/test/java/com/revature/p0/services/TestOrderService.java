@@ -44,11 +44,11 @@ public class TestOrderService {
         // mocking = equals true
         when(orderDao.create(any(Order.class))).thenReturn(newOrder);
 
-
         Order result = orderService.createOrder(total_sum, session_Id);
-
         Assert.assertEquals(newOrder.getId(), result.getId());
     }
+
+
 
     //List<Order> findAllByAccountId(String account_id) {
     //        return orderDao.finalAllByAccountId(account_id);
