@@ -41,7 +41,7 @@ Please read this document before running the system.
 
 
 
-7 - To Register a new user press 2 in the Home Screen then press Enter.
+7 - To Register a new user press 2 in the Home Screen then press Enter.   
 
     A - Username should be between 4 and 20 characters with optional dots or underscores. 
 
