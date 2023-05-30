@@ -85,7 +85,7 @@ public class CartScreen implements IScreen {
 
         System.out.println("select a product to remove: ");
         int userChoice = scan.nextInt();
-        CartItems productChoice = list.get(userChoice);
+        CartItems productChoice = list.get(userChoice - 1);
         System.out.println(productChoice.getProductId());
 
         return productChoice;

@@ -90,12 +90,13 @@ public class CartItemsDAO {
         return removalSuccess;
     }
 
-    public void updateByQuantity(int toRemove, String productId) {
+    public void updateByQuantity(int newQuantity, String productId) {
         try(Connection conn = ConnectionFactory.getInstance().getConnection()) {
-            String sql = "UPDATE products SET on_hand = on_hand - toRemove WHERE = ?";
+            String sql = "UPDATE products SET on_hand = ?  WHERE id = ?";
 
             try(PreparedStatement ps = conn.prepareStatement(sql)) {
-                ps.setString(1, productId);
+                ps.setInt(1, newQuantity);
+                ps.setString(2, productId);
                 ps.executeUpdate();
             }
 
@@ -106,6 +107,31 @@ public class CartItemsDAO {
         } catch(ClassNotFoundException e) {
             throw new RuntimeException("Unable to load JDBC driver", e);
         }
+    }
+
+    public int getQuantity(String productId) {
+        int quantity = 0;
+        try(Connection conn = ConnectionFactory.getInstance().getConnection()) {
+            String sql = "SELECT * FROM cart_items WHERE product_id = ?";
+
+            try(PreparedStatement ps = conn.prepareStatement(sql)) {
+                ps.setString(1, productId);
+
+                ResultSet rs = ps.executeQuery();
+                if (rs.next()) {
+                    quantity = rs.getInt("quantity");
+                }
+            }
+
+        } catch(SQLException e) {
+            throw new RuntimeException("Unable to connect to db", e);
+        } catch(IOException e) {
+            throw new RuntimeException("Cannot find application.properties", e);
+        } catch(ClassNotFoundException e) {
+            throw new RuntimeException("Unable to load JDBC driver", e);
+        }
+
+        return quantity;
     }
 
 }

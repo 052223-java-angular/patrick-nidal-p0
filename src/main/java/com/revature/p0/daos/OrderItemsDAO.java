@@ -15,7 +15,7 @@ public class OrderItemsDAO {
 
     public void createOrderItems(OrderItems orderItems) {
         try(Connection conn = ConnectionFactory.getInstance().getConnection()) {
-            String sql = "INSERT INTO cart_items (id, quantity, order_id, product_id) VALUES (?, ?, ?, ?)";
+            String sql = "INSERT INTO order_items (id, quantity, order_id, product_id) VALUES (?, ?, ?, ?)";
 
             try(PreparedStatement ps = conn.prepareStatement(sql)) {
                 ps.setString(1, orderItems.getId());

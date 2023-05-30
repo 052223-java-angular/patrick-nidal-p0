@@ -9,6 +9,7 @@ import com.revature.p0.services.OrderService;
 import com.revature.p0.services.ProductService;
 import com.revature.p0.services.RouterService;
 
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -45,30 +46,32 @@ public class CheckoutScreen {
 
         System.out.println("Total for your order is: " + total_sum);
 
-        System.out.println("\nEnter (y/n) to confirm purchase: ");
+        System.out.println("\nConfirm Purchase ?");
+
+
 
         exit: {
             while(true) {
                 clearScreen();
-
-                System.out.println("\nEnter (y/n): ");
+                System.out.print("\nEnter (y/n): ");
 
                 switch(scan.nextLine()) {
                     case "y":
+                        System.out.println("this line is after y");
                         //process payment helper function
                         double balance = secureCheckout(total_sum, scan);
-
+                        System.out.println(balance);
                         //create order and return orderId
                         String orderId = orderService.createOrder(total_sum, session.getId());
-
+                        System.out.println(orderId);
                         //store order items for order history
                         orderService.createOrderItems(sessionCart, orderId);
-
+                        System.out.println("Stored");
                         //remove on_hand items that were purchased from products table and account cart
                         removeFromOnHand(sessionCart, cartItemService, productService);
-
+                        System.out.println("Removed from on hand");
                         System.out.println("your balance is. " + balance);
-
+                        scan.nextLine();
                         router.navigate("/order", scan);
                         break exit;
                     case "n":
@@ -89,10 +92,19 @@ public class CheckoutScreen {
     }
 
     private double secureCheckout(double sum, Scanner scan) {
+
+
         while(true) {
-            double userAmount = scan.nextDouble();
-            if(userAmount >= sum) {
-                return userAmount-sum;
+            System.out.println("Enter the payment amount in format($xx.xx)");
+
+            try {
+                double userAmount = scan.nextDouble();
+                if (userAmount <= sum && userAmount > 0) {
+                    return userAmount;
+                }
+
+            } catch (InputMismatchException e) {
+                scan.nextLine();
             }
         }
     }
@@ -107,5 +119,8 @@ public class CheckoutScreen {
         System.out.flush();
     }
 
+    private void processPayment() {
+
+    }
 
 }

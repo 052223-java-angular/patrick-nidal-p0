@@ -4,6 +4,7 @@ import com.revature.p0.models.Order;
 import com.revature.p0.utils.ConnectionFactory;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -41,6 +42,13 @@ public class OrderDAO {
             String sql = "SELECT * FROM orders WHERE account_id = ?";
             try (PreparedStatement ps = conn.prepareStatement(sql)) {
                 ps.setString(1, account_id);
+
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    Order order = new Order(rs.getString("id"), rs.getDouble("total_cost")
+                    ,rs.getString("account_id"));
+                    orders.add(order);
+                }
             }
 
         } catch(SQLException e) {
