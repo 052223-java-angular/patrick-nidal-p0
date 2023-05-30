@@ -57,20 +57,16 @@ public class CheckoutScreen {
 
                 switch(scan.nextLine()) {
                     case "y":
-                        System.out.println("this line is after y");
                         //process payment helper function
                         double balance = secureCheckout(total_sum, scan);
-                        System.out.println(balance);
                         //create order and return orderId
                         String orderId = orderService.createOrder(total_sum, session.getId());
-                        System.out.println(orderId);
                         //store order items for order history
                         orderService.createOrderItems(sessionCart, orderId);
-                        System.out.println("Stored");
                         //remove on_hand items that were purchased from products table and account cart
                         removeFromOnHand(sessionCart, cartItemService, productService);
-                        System.out.println("Removed from on hand");
-                        System.out.println("your balance is. " + balance);
+                        System.out.println("Checkout processed.");
+                        System.out.println("Your balance is. " + balance);
                         scan.nextLine();
                         router.navigate("/order", scan);
                         break exit;
@@ -93,14 +89,16 @@ public class CheckoutScreen {
 
     private double secureCheckout(double sum, Scanner scan) {
 
-
         while(true) {
             System.out.println("Enter the payment amount in format($xx.xx)");
 
             try {
                 double userAmount = scan.nextDouble();
-                if (userAmount <= sum && userAmount > 0) {
+                if (userAmount >= sum) {
                     return userAmount;
+                } else {
+                    System.out.println("Not enough.");
+                    scan.nextLine();
                 }
 
             } catch (InputMismatchException e) {
@@ -117,10 +115,6 @@ public class CheckoutScreen {
     private void clearScreen() {
         System.out.print("\033[H\033[2J");
         System.out.flush();
-    }
-
-    private void processPayment() {
-
     }
 
 }

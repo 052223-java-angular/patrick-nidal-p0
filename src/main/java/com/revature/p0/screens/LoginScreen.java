@@ -6,9 +6,12 @@ import com.revature.p0.models.Session;
 import com.revature.p0.services.UserService;
 import java.util.Scanner;
 import lombok.AllArgsConstructor;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 @AllArgsConstructor
 public class LoginScreen implements IScreen {
+    private static final Logger logger = LogManager.getLogger(LoginScreen.class);
     private RouterService router;
     private final UserService userService;
     private Session session;
@@ -16,6 +19,8 @@ public class LoginScreen implements IScreen {
     public void start(Scanner scan) {
         String username = "";
         String password = "";
+
+        logger.info("Start login process.");
 
         exit: {
             while(true) {

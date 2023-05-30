@@ -4,15 +4,20 @@ import com.revature.p0.models.Session;
 import com.revature.p0.services.RouterService;
 import java.util.Scanner;
 import lombok.AllArgsConstructor;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 @AllArgsConstructor
 public class MainMenu implements IScreen {
+    private static final Logger logger = LogManager.getLogger(MainMenu.class);
     private final RouterService router;
     private Session session;
 
     @Override
     public void start(Scanner scan) {
         String input = "";
+
+        logger.info("Start of main menu.");
 
         exit: {
             while(true) {

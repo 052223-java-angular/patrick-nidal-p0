@@ -5,10 +5,14 @@ import com.revature.p0.services.UserService;
 import com.revature.p0.models.User;
 import com.revature.p0.models.Session;
 import lombok.AllArgsConstructor;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.util.Scanner;
 
 @AllArgsConstructor
 public class RegisterScreen {
+    private static final Logger logger = LogManager.getLogger(RegisterScreen.class);
     private final RouterService router;
     private final UserService userService;
     private Session session;
@@ -16,6 +20,8 @@ public class RegisterScreen {
     public void start(Scanner scan) {
         String username = "";
         String password = "";
+
+        logger.info("Start registration process.");
 
         exit: {
             while(true) {
