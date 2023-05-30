@@ -13,8 +13,7 @@ import java.util.List;
 public class OrderDAO {
 
 
-    public String create(Order order) {
-        String orderId = order.getId();
+    public Order create(Order order) {
         try(Connection conn = ConnectionFactory.getInstance().getConnection()) {
             String sql = "INSERT INTO orders (id, total_cost, account_id) VALUES (?, ?, ?)";
 
@@ -32,8 +31,7 @@ public class OrderDAO {
         } catch(ClassNotFoundException e) {
             throw new RuntimeException("Unable to load JDBC driver", e);
         }
-        return orderId;
-
+        return order;
     }
 
     public List<Order> finalAllByAccountId(String account_id) {

@@ -12,7 +12,6 @@ import java.util.List;
 
 public class CartDAO {
 
-    //this should be in cartDAO
     public boolean createCart(Cart cart) {
         boolean isCreated = false;
         try(Connection conn = ConnectionFactory.getInstance().getConnection()) {

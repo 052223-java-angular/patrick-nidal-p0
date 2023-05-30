@@ -27,7 +27,7 @@ public class OrderService {
         return total_sum;
     }
 
-    public String createOrder(double total_sum, String session_Id) {
+    public Order createOrder(double total_sum, String session_Id) {
         Order newOrder = new Order(total_sum, session_Id);
         return orderDao.create(newOrder);
     }
