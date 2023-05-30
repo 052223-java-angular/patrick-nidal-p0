@@ -13,6 +13,9 @@ import org.mockito.MockitoAnnotations;
 
 import java.util.List;
 
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
+
 public class TestOrderService {
     @Mock
     private OrderDAO orderDao;
@@ -34,12 +37,17 @@ public class TestOrderService {
     public void testCreateOrder () {
         double total_sum = 45.45;
         String session_Id = "randomnumbers";
-        String actual = orderService.createOrder(total_sum, session_Id);
+        String id = "cd7a196a-b4a1-4f2a-a6fc-902cc887ab71";
         //may need to mock a user session id to make work
 
-        //make a order object
-        String expected = "whatever the return value is supposed to be";
-        Assert.assertEquals(actual, expected);
+        Order newOrder = new Order(id, total_sum, session_Id);
+        // mocking = equals true
+        when(orderDao.create(any(Order.class))).thenReturn(newOrder);
+
+
+        Order result = orderService.createOrder(total_sum, session_Id);
+
+        Assert.assertEquals(newOrder.getId(), result.getId());
     }
 
     //List<Order> findAllByAccountId(String account_id) {
@@ -48,10 +56,9 @@ public class TestOrderService {
 
     //OK, this is a bad thing to be doing. Don't mock a list; instead, mock the individual objects inside the list
     //https://stackoverflow.com/questions/18483176/mockito-mocking-an-arraylist-that-will-be-looped-in-a-for-loop
-    @Test void testFindAllByAccountId() {
-        String account_id = "user123";
-        List<Order> actual = orderService.findAllByAccountId("account_id");
-        List<Order> expected = ??;
-    }
+    //@Test void testFindAllByAccountId() {
+    //    String account_id = "user123";
+    //    List<Order> actual = orderService.findAllByAccountId("account_id");
+    //}
 
 }

@@ -60,7 +60,7 @@ public class CheckoutScreen {
                         //process payment helper function
                         double balance = secureCheckout(total_sum, scan);
                         //create order and return orderId
-                        String orderId = orderService.createOrder(total_sum, session.getId());
+                        String orderId = orderService.createOrder(total_sum, session.getId()).getId();
                         //store order items for order history
                         orderService.createOrderItems(sessionCart, orderId);
                         //remove on_hand items that were purchased from products table and account cart
