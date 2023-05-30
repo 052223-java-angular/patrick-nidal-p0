@@ -43,8 +43,7 @@ public class ProductService {
         for(CartItems item : sessionCart) {
            int onHand = productDao.checkOnHand(item.getProductId());
            int newQuantity = onHand - item.getQuantity();
-            productDao.updateByQuantity(newQuantity, item.getProductId());
-
+           productDao.updateByQuantity(newQuantity, item.getProductId());
         }
     }
 
