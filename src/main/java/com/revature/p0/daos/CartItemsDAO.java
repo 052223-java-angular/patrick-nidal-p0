@@ -90,12 +90,12 @@ public class CartItemsDAO {
         return removalSuccess;
     }
 
-    public void deleteByProductId(String productId) {
+    public void deleteByCartId(String cartId) {
         try(Connection conn = ConnectionFactory.getInstance().getConnection()) {
-            String sql = "DELETE FROM cart_items WHERE id = ?";
+            String sql = "DELETE FROM cart_items WHERE cart_id = ?";
 
             try(PreparedStatement ps = conn.prepareStatement(sql)) {
-                ps.setString(1, productId);
+                ps.setString(1, cartId);
                 ps.executeUpdate();
             }
 

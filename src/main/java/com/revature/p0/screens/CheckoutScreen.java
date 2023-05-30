@@ -64,7 +64,7 @@ public class CheckoutScreen {
                         //store order items for order history
                         orderService.createOrderItems(sessionCart, orderId);
                         //remove on_hand items that were purchased from products table and account cart
-                        removeFromOnHand(sessionCart, cartItemService, productService);
+                        removeFromOnHand(session.getCartId(), sessionCart, cartItemService, productService);
                         System.out.println("Checkout processed.");
                         System.out.println("Your balance is. " + balance);
                         scan.nextLine();
@@ -107,9 +107,9 @@ public class CheckoutScreen {
         }
     }
 
-    public void removeFromOnHand(List<CartItems> sessionCart, CartItemService cartItemService, ProductService productService) {
+    public void removeFromOnHand(String sessionCartId, List<CartItems> sessionCart, CartItemService cartItemService, ProductService productService) {
         productService.removeItemsFromOnHand(sessionCart);
-        cartItemService.removeItemsFromCart(sessionCart);
+        cartItemService.removeItemsFromCart(sessionCartId);
     }
 
     private void clearScreen() {

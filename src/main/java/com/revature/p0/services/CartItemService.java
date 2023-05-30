@@ -25,10 +25,8 @@ public class CartItemService {
         cartItemsDAO.cartQuantityRemoval(quantityChoice, price, Id);
     }
 
-    public void removeItemsFromCart(List<CartItems> sessionCart) {
-        for(CartItems item : sessionCart) {
-            cartItemsDAO.deleteByProductId(item.getProductId());
-        }
+    public void removeItemsFromCart(String sessionCartId) {
+        cartItemsDAO.deleteByCartId(sessionCartId);
     }
 
 }
