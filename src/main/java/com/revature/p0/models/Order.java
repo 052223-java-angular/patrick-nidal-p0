@@ -23,5 +23,11 @@ public class Order {
         this.total_cost = total_cost;
         this.account_id = account_id;
     }
+    public Order(double total_cost) {
+
+        this.total_cost = total_cost;
+
+    }
+
 
 }
