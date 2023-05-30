@@ -95,7 +95,7 @@ public class CheckoutScreen {
             try {
                 double userAmount = scan.nextDouble();
                 if (userAmount >= sum) {
-                    return userAmount;
+                    return userAmount-sum;
                 } else {
                     System.out.println("Not enough.");
                     scan.nextLine();
