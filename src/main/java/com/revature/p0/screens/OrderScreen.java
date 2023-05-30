@@ -29,11 +29,12 @@ public class OrderScreen {
         System.out.println("Orders history.");
 
         List<Order> allOrders = orderService.findAllByAccountId(session.getId());
-
         int counter = 1;
 
         for(Order oneOrder : allOrders) {
+            System.out.println(oneOrder.getTotal_cost());
             List<OrderItems> orderItems = orderService.findAllByOrderId(oneOrder.getId());
+            System.out.println(oneOrder.getAccount_id());
             for(OrderItems items : orderItems) {
                 System.out.println(counter + ". Items for this order include: " + items.getQuantity() + "x " + items.getProductId());
 

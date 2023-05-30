@@ -27,7 +27,9 @@ public class CartItemService {
 
     public void removeItemsFromCart(List<CartItems> sessionCart) {
         for(CartItems item : sessionCart) {
-            cartItemsDAO.updateByQuantity(item.getQuantity(), item.getProductId());
+            int quantity = cartItemsDAO.getQuantity(item.getProductId());
+            int newQuantity = quantity - item.getQuantity();
+            cartItemsDAO.updateByQuantity(newQuantity, item.getProductId());
         }
     }
 

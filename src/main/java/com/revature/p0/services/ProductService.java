@@ -41,7 +41,10 @@ public class ProductService {
 
     public void removeItemsFromOnHand(List<CartItems> sessionCart) {
         for(CartItems item : sessionCart) {
-            productDao.updateByQuantity(item.getQuantity(), item.getProductId());
+           int onHand = productDao.checkOnHand(item.getProductId());
+           int newQuantity = onHand - item.getQuantity();
+            productDao.updateByQuantity(newQuantity, item.getProductId());
+
         }
     }
 
