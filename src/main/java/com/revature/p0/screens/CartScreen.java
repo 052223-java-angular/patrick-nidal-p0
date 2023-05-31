@@ -84,12 +84,23 @@ public class CartScreen implements IScreen {
 
     private CartItems selectOption(Scanner scan, List<CartItems> list) {
 
-        System.out.println("select a product to remove: ");
-        int userChoice = scan.nextInt();
+        int userChoice = selectNumber(scan);
         CartItems productChoice = list.get(userChoice - 1);
         System.out.println(productChoice.getProductId());
 
         return productChoice;
+    }
+
+    private int selectNumber(Scanner scan) {
+        while(true) {
+            System.out.println("Select a product to remove: ");
+            try {
+                return scan.nextInt();
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid choice.");
+                scan.nextLine();
+            }
+        }
     }
 
     private int showRemainingInCart(Scanner scan, int quantity, double price, String id) {
@@ -97,6 +108,7 @@ public class CartScreen implements IScreen {
         while (true) {
             //helper function is just below
             int quantityRemove = quantityRemove(scan, quantity);
+
             if (quantityRemove <= quantity && quantityRemove >= 0) {
                 int quantityChoice = quantity-quantityRemove;
                 double newPrice = (price/quantity)*quantityChoice;
@@ -116,6 +128,7 @@ public class CartScreen implements IScreen {
             try {
                 return scan.nextInt();
             } catch (InputMismatchException e) {
+                System.out.println("Invalid choice. Select an integer.");
                 scan.nextLine();
             }
         }
