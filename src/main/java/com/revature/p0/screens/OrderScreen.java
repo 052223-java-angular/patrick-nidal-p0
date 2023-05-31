@@ -22,7 +22,7 @@ public class OrderScreen {
 
     public void start(Scanner scan) {
 
-        System.out.println("\nUnprocessed order");
+        System.out.println("\n--Unprocessed order--");
         double total_sum = orderService.returnTotal(session.getCartId());
         System.out.println("Total of any unprocessed orders are: $" + total_sum);
 
@@ -35,7 +35,7 @@ public class OrderScreen {
             List<OrderItems> orderItems = orderService.findAllByOrderId(oneOrder.getId());
 
             for(OrderItems items : orderItems) {
-                System.out.println(counter + ". Items for this order include: " + items.getQuantity() + "x " + items.getProductId());
+                System.out.println(counter + ", Items for this order include: " + items.getQuantity() + "x " + items.getProductId());
 
             }
             System.out.println("Total cost of order: $" + oneOrder.getTotal_cost());
