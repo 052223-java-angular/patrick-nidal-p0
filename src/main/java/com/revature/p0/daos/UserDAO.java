@@ -124,4 +124,28 @@ public class UserDAO implements CrudDAO<User> {
         return Optional.empty();
     }
 
+    public String getAccountId(String username) {
+
+        try(Connection conn = ConnectionFactory.getInstance().getConnection()) {
+            String sql = "SELECT * FROM accounts WHERE username = ?";
+
+            try(PreparedStatement ps = conn.prepareStatement(sql)) {
+                ps.setString(1, username);
+
+                ResultSet rs = ps.executeQuery();
+
+                if (rs.next()) {
+                    return rs.getString("id");
+                }
+            }
+
+        } catch(SQLException e) {
+            throw new RuntimeException("Unable to connect to db", e);
+        } catch(IOException e) {
+            throw new RuntimeException("Cannot find application.properties", e);
+        } catch(ClassNotFoundException e) {
+            throw new RuntimeException("Unable to load JDBC driver", e);
+        }
+        return null;
+    }
 }

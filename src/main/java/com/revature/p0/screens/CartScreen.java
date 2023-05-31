@@ -12,9 +12,15 @@ import lombok.AllArgsConstructor;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+
+
 @AllArgsConstructor
 
 public class CartScreen implements IScreen {
+    private static final Logger logger = LogManager.getLogger(CartScreen.class);
     private final RouterService router;
     private final CartItemService cartService;
     private Session session;
@@ -23,6 +29,8 @@ public class CartScreen implements IScreen {
     @Override
     public void start(Scanner scan) {
         System.out.println("\nYour Cart Items ");
+        logger.info(session.getCartId());
+        logger.info(session.getId());
 
         List<CartItems> sessionCart = cartService.getAllCartItems(session.getCartId());
         for(CartItems items : sessionCart) {
@@ -50,6 +58,10 @@ public class CartScreen implements IScreen {
                     case "2":
                         System.out.println("Select products to remove.");
                         List<CartItems> sessionCart2 = cartService.getAllCartItems(session.getCartId());
+                        if (sessionCart2.size() == 0) {
+                            System.out.println("No products in cart!");
+                            break;
+                        }
                         int counter = 1;
                         for(CartItems items : sessionCart2) {
                             System.out.println("press " + counter + " for " + items.getProductId());
@@ -84,11 +96,20 @@ public class CartScreen implements IScreen {
 
     private CartItems selectOption(Scanner scan, List<CartItems> list) {
 
-        int userChoice = selectNumber(scan);
-        CartItems productChoice = list.get(userChoice - 1);
-        System.out.println(productChoice.getProductId());
+        while (true) {
+            try {
+                int userChoice = selectNumber(scan);
+                CartItems productChoice = list.get(userChoice - 1);
+                System.out.println(productChoice.getProductId());
 
-        return productChoice;
+                return productChoice;
+            } catch (IndexOutOfBoundsException e) {
+                System.out.println("Invalid!");
+                scan.nextLine();
+            }
+        }
+
+
     }
 
     private int selectNumber(Scanner scan) {
