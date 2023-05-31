@@ -34,12 +34,12 @@ public class CartScreen implements IScreen {
 
         List<CartItems> sessionCart = cartService.getAllCartItems(session.getCartId());
         for(CartItems items : sessionCart) {
-            System.out.println("cart item: " + items.getProductId());
-            System.out.println("item quantity: " + items.getQuantity());
-            System.out.println("item price" + items.getPrice());
+            System.out.println("\nCart item: " + items.getProductId());
+            System.out.println("Item quantity: " + items.getQuantity());
+            System.out.println("Item price" + items.getPrice());
         }
 
-        System.out.println("Would you like to add or remove items to your cart? Or proceed to checkout?");
+        System.out.println("\nWould you like to add or remove items to your cart? Or proceed to checkout?");
 
         exit: {
             while (true) {
@@ -64,7 +64,7 @@ public class CartScreen implements IScreen {
                         }
                         int counter = 1;
                         for(CartItems items : sessionCart2) {
-                            System.out.println("press " + counter + " for " + items.getProductId());
+                            System.out.println("Press " + counter + " for " + items.getProductId());
                             counter++;
                         }
                         CartItems choice = selectOption(scan, sessionCart2);
