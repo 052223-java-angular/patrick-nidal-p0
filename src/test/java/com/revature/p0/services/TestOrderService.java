@@ -89,8 +89,8 @@ public class TestOrderService {
         double totalAmount = orderService.returnTotal(cart_id);
 
         //DAO and service layer do not have same return type
-        //assertEquals(actualList, totalAmount);
-        System.out.println("Passed.");
+        double total = 45.45 + 55.45 + 65.45;
+        assertEquals(total, totalAmount, .01);
     }
 
     @Test
