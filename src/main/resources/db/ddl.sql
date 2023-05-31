@@ -18,7 +18,6 @@ CREATE TABLE accounts (
 	username VARCHAR,
 	password VARCHAR NOT NULL,
 	role_id VARCHAR,
-	FOREIGN KEY (role_id) REFERENCES roles (id)
 );
 
 CREATE TABLE category(

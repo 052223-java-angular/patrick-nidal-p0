@@ -31,20 +31,20 @@ public class CheckoutScreen {
 
     public void start(Scanner scan) {
 
-        System.out.println("Welcome to payment processing.");
+        System.out.println("\nWelcome to payment processing.");
 
-        System.out.println("Confirm cart items: ");
+        System.out.println("\nConfirm cart items: ");
 
         List<CartItems> sessionCart = cartItemService.getAllCartItems(session.getCartId());
         for(CartItems items : sessionCart) {
-            System.out.println("cart item: " + items.getProductId());
-            System.out.println("item quantity: " + items.getQuantity());
-            System.out.println("item price" + items.getPrice());
+            System.out.println("Product: " + items.getProductId());
+            System.out.println("Quantity: " + items.getQuantity());
+            System.out.println("Price $" + items.getPrice());
         }
 
         double total_sum = orderService.returnTotal(session.getCartId());
 
-        System.out.println("Total for your order is: " + total_sum);
+        System.out.println("\nTotal for your order is: $" + total_sum);
 
         System.out.println("\nConfirm Purchase ?");
 

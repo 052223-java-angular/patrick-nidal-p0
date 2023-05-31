@@ -18,6 +18,9 @@ public class MainMenu implements IScreen {
         String input = "";
 
         logger.info("Start of main menu.");
+        logger.info(session.getCartId());
+        logger.info(session.getId());
+
 
         exit: {
             while(true) {

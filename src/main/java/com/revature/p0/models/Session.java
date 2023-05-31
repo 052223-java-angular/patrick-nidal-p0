@@ -22,6 +22,10 @@ public class Session {
         this.username = user.getUsername();
     }
 
+    public void setSessionId(String accountId) {
+        this.id = accountId;
+    }
+
     public void setCartId(String cartId) {
         this.cartId = cartId;
     }
