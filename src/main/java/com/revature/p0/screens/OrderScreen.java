@@ -33,12 +33,12 @@ public class OrderScreen {
 
         for(Order oneOrder : allOrders) {
             List<OrderItems> orderItems = orderService.findAllByOrderId(oneOrder.getId());
-
             for(OrderItems items : orderItems) {
                 System.out.println(counter + ", Items for this order include: " + items.getQuantity() + "x " + items.getProductId());
 
             }
             System.out.println("Total cost of order: $" + oneOrder.getTotal_cost());
+
             counter++;
         }
 
