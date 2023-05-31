@@ -41,7 +41,13 @@ public class ProductScreen implements IScreen{
                         List<Product> list = getAllProducts(productService);
                         Product choice =  selectOption(scan, list);
                         System.out.println("Left in Stock " + choice.getOnHand());
+                        if (choice.getOnHand() == 0) {
+                            System.out.println("No products left in the stock!");
+                            break;
+                        }
                         int quantity = determineQuantity(scan, choice.getOnHand());
+
+
                         addSelectedItemToCart(choice, session.getCartId(), quantity);
 
                         System.out.println("Item added to cart successfully!");

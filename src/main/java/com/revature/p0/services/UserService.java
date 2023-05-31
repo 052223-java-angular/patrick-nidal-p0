@@ -51,7 +51,7 @@ public class UserService {
     }
 
     public String getAccountId(String username) {
-        return cartDao.getCartId(username);
+        return userDao.getAccountId(username);
     }
 
     public String getCartId(String accountId) {
