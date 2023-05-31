@@ -7,6 +7,7 @@ import com.revature.p0.services.RouterService;
 import com.revature.p0.services.ProductService;
 import lombok.AllArgsConstructor;
 
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -153,8 +154,7 @@ public class ProductScreen implements IScreen{
 
     private Product selectOption(Scanner scan, List<Product> list) {
 
-        System.out.println("select a product: ");
-        int userChoice = scan.nextInt();
+        int userChoice = selectNumber(scan);
         scan.nextLine();
         Product productChoice = list.get(userChoice - 1);
         System.out.println(productChoice.getId());
@@ -162,18 +162,43 @@ public class ProductScreen implements IScreen{
         return productChoice;
     }
 
+    private int selectNumber(Scanner scan) {
+        while(true) {
+            System.out.println("Select a product: ");
+            try {
+                return scan.nextInt();
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid choice.");
+                scan.nextLine();
+            }
+        }
+    }
+
 
 
     private int determineQuantity(Scanner scan, int onHand) {
         while (true) {
-            System.out.println("Quantity in stock: " + onHand);
-            System.out.println("Enter Quantity: ");
-            int amount = scan.nextInt();
+            int amount = selectQuantity(scan, onHand);
             if (amount <= onHand && amount >= 0) {
                 System.out.println("You've selected " + amount);
                 return amount;
             }
             System.out.println("Invalid Amount");
+            //might need a scan.nextLine here
+            scan.nextLine();
+        }
+    }
+
+    private int selectQuantity(Scanner scan, int onHand) {
+        while(true) {
+            System.out.println("Quantity in stock: " + onHand);
+            System.out.println("Enter Quantity: ");
+            try {
+                return scan.nextInt();
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid choice.");
+                scan.nextLine();
+            }
         }
     }
 

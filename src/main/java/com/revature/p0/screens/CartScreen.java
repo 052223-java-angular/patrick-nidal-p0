@@ -9,6 +9,7 @@ import com.revature.p0.services.ProductService;
 import com.revature.p0.services.RouterService;
 import lombok.AllArgsConstructor;
 
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 @AllArgsConstructor
@@ -83,19 +84,31 @@ public class CartScreen implements IScreen {
 
     private CartItems selectOption(Scanner scan, List<CartItems> list) {
 
-        System.out.println("select a product to remove: ");
-        int userChoice = scan.nextInt();
+        int userChoice = selectNumber(scan);
         CartItems productChoice = list.get(userChoice - 1);
         System.out.println(productChoice.getProductId());
 
         return productChoice;
     }
 
+    private int selectNumber(Scanner scan) {
+        while(true) {
+            System.out.println("Select a product to remove: ");
+            try {
+                return scan.nextInt();
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid choice.");
+                scan.nextLine();
+            }
+        }
+    }
+
     private int showRemainingInCart(Scanner scan, int quantity, double price, String id) {
 
         while (true) {
-            System.out.println("How many to remove?  Currently " + quantity + " in cart.");
-            int quantityRemove = scan.nextInt();
+            //helper function is just below
+            int quantityRemove = quantityRemove(scan, quantity);
+
             if (quantityRemove <= quantity && quantityRemove >= 0) {
                 int quantityChoice = quantity-quantityRemove;
                 double newPrice = (price/quantity)*quantityChoice;
@@ -104,8 +117,21 @@ public class CartScreen implements IScreen {
                 return quantityChoice;
             }
             System.out.println("Invalid Amount");
+            scan.nextLine();
         }
 
+    }
+
+    private int quantityRemove(Scanner scan, int quantity) {
+        while(true) {
+            System.out.println("How many to remove?  Currently " + quantity + " in cart.");
+            try {
+                return scan.nextInt();
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid choice. Select an integer.");
+                scan.nextLine();
+            }
+        }
     }
 
     private boolean isValidCheckout(ProductService productService, List<CartItems> sessionCart) {
