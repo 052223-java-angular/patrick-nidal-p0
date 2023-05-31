@@ -30,4 +30,8 @@ public class Session {
         this.cartId = cartId;
     }
 
+    public void setSessionUsername(String username) {
+        this.username=username;
+    }
+
 }

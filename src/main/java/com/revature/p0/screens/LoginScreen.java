@@ -50,6 +50,7 @@ public class LoginScreen implements IScreen {
                 logger.info("Account id = " + account_id);
 
                 session.setSessionId(account_id);
+                session.setSessionUsername(isValidUser.getUsername());
                 session.setCartId(userService.getCartId(userService.getAccountId(isValidUser.getUsername())));
                 router.navigate("/menu", scan);
 
