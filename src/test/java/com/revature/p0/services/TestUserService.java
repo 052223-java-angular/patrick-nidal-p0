@@ -33,7 +33,7 @@ public class TestUserService {
 
     @Test
     public void testValidUsername() {
-        String validUsername = "checkUsernameValidity";
+        String validUsername = "usernameValidity";
         String invalidUsername = "";
 
         assertTrue(userService.validUsername(validUsername));
