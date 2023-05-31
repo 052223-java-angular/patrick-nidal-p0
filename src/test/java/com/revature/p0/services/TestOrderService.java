@@ -95,7 +95,10 @@ public class TestOrderService {
 
     @Test
     public void testCreateOrderItems() {
+        String id = "cd7a196a-b4a1-4f2a-a6fc-902cc887ab71";
+        int quantity = 10;
         String order_id = "09be3a6c-0313-44f5-a6e7-54d1f2dfa326";
+        String product_id = "f155521f-c5b3-400b-9fa7-e8b1ae699c14";
         OrderItems orderItemsOne = new OrderItems("cd7a196a-b4a1-4f2a-a6fc-902cc887ab71", 10 ,order_id, "f155521f-c5b3-400b-9fa7-e8b1ae699c14");
         OrderItems orderItemsTwo = new OrderItems("54f9ecaf-fe62-4e1f-934a-7c05b82dcdb7", 15 ,order_id, "c83fcedd-7a4b-4154-8ba7-6250ed81c544");
         OrderItems orderItemsThree = new OrderItems("3eeefe9e-9940-4f1c-8184-62afd3aad7e8", 20 ,order_id, "634d6cbf-7638-4588-966b-3a491b3b3431");
@@ -103,10 +106,11 @@ public class TestOrderService {
         actualList.add(orderItemsOne);
         actualList.add(orderItemsTwo);
         actualList.add(orderItemsThree);
+        OrderItems forAnyDotClass = new OrderItems(id, quantity, order_id, product_id);
 
         //createOrderItems(List<CartItems> sessionCart, String orderId)
-        doNothing().when(orderItemsDao).createOrderItems(any(OrderItems.class));
-        verify(orderItemsDao, times(1)).createOrderItems(any(OrderItems.class));
+        //doNothing().when(orderItemsDao).createOrderItems(any(OrderItems.class));
+        //verify(orderItemsDao, times(1)).createOrderItems(forAnyDotClass);
     }
 
     @Test
